@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../AuthScreens/Login";
-import Register from "../AuthScreens/Register";
+import Register from "../AuthScreens/Register/Register";
+import Register2 from "../AuthScreens/Register/Register2";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -14,6 +15,7 @@ const StackNavigator = () => {
             }} initialRouteName="Register" >
                 <AuthStack.Screen name="Login" component={Login}/>
                 <AuthStack.Screen name="Register" component={Register}/>
+                <AuthStack.Screen name="Register2" component={Register2}/>
             </AuthStack.Navigator>
         );
     }

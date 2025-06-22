@@ -14,6 +14,7 @@ import {
 
 type RootStackParamList = {
   Login: undefined;
+  Register2: undefined;
   // add other screens here if needed
 };
 
@@ -58,7 +59,7 @@ const Register = () => {
       <StatusBar barStyle="dark-content" />
       <View>
         <Animated.Image
-          source={require("../../assets/images/Logo.png")}
+          source={require("../../../assets/images/Logo.png")}
           style={[{
             width: 63,
             height: 54,
@@ -69,7 +70,7 @@ const Register = () => {
           resizeMode="contain"
         />
         <Animated.Image
-          source={require("../../assets/images/Register-image.png")}
+          source={require("../../../assets/images/Register-image.png")}
           style={[
             { width: Dimensions.get("window").width - 100, height: 300 },
             { transform: [{ translateY: moveAnim }] },
@@ -99,7 +100,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../assets/images/GoogleIcon.png")}
+              source={require("../../../assets/images/GoogleIcon.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -115,7 +116,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../assets/images/AppleLogo.png")}
+              source={require("../../../assets/images/AppleLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -131,7 +132,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../assets/images/FacebookLogo.png")}
+              source={require("../../../assets/images/FacebookLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -148,6 +149,7 @@ const Register = () => {
             width: "100%",
             height: 47,
           }}
+          onPress={() => navigation.navigate("Register2")}
         >
           <Text style={{ textAlign: "center", color: "white" }}>
             Sign up with Email
