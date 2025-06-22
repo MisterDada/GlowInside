@@ -1,4 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
@@ -21,9 +22,8 @@ type RootStackParamList = {
 const Register = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const moveAnim = useRef(new Animated.Value(100)).current;
+  const moveAnim = useRef(new Animated.Value(50)).current;
   const showAnim = useRef(new Animated.Value(0)).current;
-
 
   const animateBox = () => {
     Animated.timing(moveAnim, {
@@ -56,7 +56,7 @@ const Register = () => {
       }}
     >
       <StatusBar barStyle="dark-content" />
-      <View>
+      <View style={{ zIndex: 1 }}>
         <Animated.Image
           source={require("../../../assets/images/Logo.png")}
           style={[
@@ -82,7 +82,12 @@ const Register = () => {
         />
       </View>
       <View
-        style={{ alignItems: "center", justifyContent: "center", width: "80%", marginTop: 20 }}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          width: "80%",
+          marginTop: 20,
+        }}
       >
         <Text
           style={{
@@ -147,21 +152,17 @@ const Register = () => {
             <Text style={styles.socialText}>Sign up with Facebook</Text>
           </View>
         </Pressable>
-        <Pressable
-          style={{
-            backgroundColor: "#003CFE",
-            padding: 10,
-            marginVertical: 10,
-            borderRadius: 100,
-            justifyContent: "center",
-            width: "100%",
-            height: 47,
-          }}
-          onPress={() => navigation.navigate("Register2")}
-        >
-          <Text style={{ textAlign: "center", color: "white" }}>
-            Sign up with Email
-          </Text>
+        <Pressable onPress={() => navigation.navigate("Register2")} >
+          <LinearGradient
+            colors={["#007bff", "#003cfe"]} // gradient blue shades
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.button}
+          >
+            <Text style={{ textAlign: "center", color: "white", fontSize: 16 }}>
+              Sign up with Email
+            </Text>
+          </LinearGradient>
         </Pressable>
         <Text style={{ textAlign: "center", color: "#BBBBB9", marginTop: 10 }}>
           Already have a Glow account?{" "}
@@ -194,5 +195,14 @@ const styles = StyleSheet.create({
   socialText: {
     color: "black",
     textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#003CFE",
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 100,
+    justifyContent: "center",
+    width: "100%",
+    height: 47,
   },
 });
