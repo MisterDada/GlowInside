@@ -1,6 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  Animated,
   Dimensions,
   Image,
   Pressable,
@@ -8,9 +9,8 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View,
+  View
 } from "react-native";
-// import SvgIcon from "../SvgIcon";
 
 type RootStackParamList = {
   Login: undefined;
@@ -19,6 +19,32 @@ type RootStackParamList = {
 
 const Register = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const moveAnim = useRef(new Animated.Value(100)).current;
+  const showAnim = useRef(new Animated.Value(0)).current;
+
+  const [name, setName] = useState("");
+
+  const animateBox = () => {
+    Animated.timing(moveAnim, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true, 
+    }).start();
+  };
+
+  const showLogo = () =>{
+    Animated.timing(showAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true, 
+    }).start();
+  }
+
+  useEffect(() => {
+    animateBox();
+    showLogo();
+  }, []);
 
   return (
     <SafeAreaView
@@ -31,20 +57,24 @@ const Register = () => {
     >
       <StatusBar barStyle="dark-content" />
       <View>
-        <Image
+        <Animated.Image
           source={require("../../assets/images/Logo.png")}
-          style={{
+          style={[{
             width: 63,
             height: 54,
             marginTop: 20,
             marginBottom: 10,
             alignSelf: "center",
-          }}
+          }, {opacity: showAnim}]}
           resizeMode="contain"
         />
-        <Image
+        <Animated.Image
           source={require("../../assets/images/Register-image.png")}
-          style={{ width: Dimensions.get("window").width, height: 300 }}
+          style={[
+            { width: Dimensions.get("window").width - 100, height: 300 },
+            { transform: [{ translateY: moveAnim }] },
+            { opacity: showAnim}
+          ]}
           resizeMode="cover"
         />
       </View>
