@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Animated,
   Dimensions,
@@ -9,7 +9,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 
 type RootStackParamList = {
@@ -24,23 +24,22 @@ const Register = () => {
   const moveAnim = useRef(new Animated.Value(100)).current;
   const showAnim = useRef(new Animated.Value(0)).current;
 
-  const [name, setName] = useState("");
 
   const animateBox = () => {
     Animated.timing(moveAnim, {
       toValue: 0,
       duration: 1000,
-      useNativeDriver: true, 
+      useNativeDriver: true,
     }).start();
   };
 
-  const showLogo = () =>{
+  const showLogo = () => {
     Animated.timing(showAnim, {
       toValue: 1,
       duration: 2000,
-      useNativeDriver: true, 
+      useNativeDriver: true,
     }).start();
-  }
+  };
 
   useEffect(() => {
     animateBox();
@@ -60,13 +59,16 @@ const Register = () => {
       <View>
         <Animated.Image
           source={require("../../../assets/images/Logo.png")}
-          style={[{
-            width: 63,
-            height: 54,
-            marginTop: 20,
-            marginBottom: 10,
-            alignSelf: "center",
-          }, {opacity: showAnim}]}
+          style={[
+            {
+              width: 63,
+              height: 54,
+              marginTop: 20,
+              marginBottom: 10,
+              alignSelf: "center",
+            },
+            { opacity: showAnim },
+          ]}
           resizeMode="contain"
         />
         <Animated.Image
@@ -74,15 +76,21 @@ const Register = () => {
           style={[
             { width: Dimensions.get("window").width - 100, height: 300 },
             { transform: [{ translateY: moveAnim }] },
-            { opacity: showAnim}
+            { opacity: showAnim },
           ]}
           resizeMode="cover"
         />
       </View>
       <View
-        style={{ alignItems: "center", justifyContent: "center", width: "80%" }}
+        style={{ alignItems: "center", justifyContent: "center", width: "80%", marginTop: 20 }}
       >
-        <Text style={{ fontSize: 32, fontWeight: "bold", textAlign: "center" }}>
+        <Text
+          style={{
+            fontSize: 32,
+            textAlign: "center",
+            fontFamily: "AveriaSerifLibre-Bold",
+          }}
+        >
           Ready to put yourself first?
         </Text>
         <Text style={{ textAlign: "center", color: "#BBBBB9" }}>
