@@ -1,9 +1,8 @@
-import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Pressable,
@@ -14,9 +13,10 @@ import {
   View,
 } from "react-native";
 import useAuthStore from "../../Store";
+
 type RootStackParamList = {
   Register: undefined;
-  Register3: undefined;
+  Register2: undefined;
   Login: undefined;
 };
 
@@ -25,54 +25,84 @@ type AuthStore = {
   email: string;
   password: string;
   username: string;
+  setUsername: (username: string) => void;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
 };
 
-const Register2 = () => {
-  // Properly type useAuthStore
-  const { email, password, setEmail, setPassword, username } =
-    useAuthStore() as AuthStore;
-
+const Register3 = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const { email, password, username, setUsername } = useAuthStore() as AuthStore;
+
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const inputRef = useRef<TextInput>(null);
+  // Get userId from AsyncStorage when component mounts
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await AsyncStorage.getItem("userId");
+      console.log("Fetched userId:", userId); 
+      setUserId(userId);
+    };
+    fetchUserId();
+  }, []);
 
-  const moveToNextPage = async () => {
+  const handleRegister = async () => {
+    if (!userId) {
+      setError("User ID not found. Please restart registration.");
+      return;
+    }
+    setLoading(true);
+    setError("");
     try {
       const res = await fetch(
-        "https://chatapp-backend-avmf.onrender.com/api/auth/register-step1",
+        "https://chatapp-backend-avmf.onrender.com/api/auth/register-step2",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({
+            userId,      // <-- include userId here
+            username: username, // use the name entered by the user
             email,
             password,
           }),
         }
       );
-
-      const data = await res.json();
-      const userId = data.userId;
+      const raw = await res.text();
+      const data = JSON.parse(raw);
 
       if (res.ok) {
-        console.log(userId)
-        if (userId) {
-          await AsyncStorage.setItem("userId", userId);
-        }
-        navigation.navigate("Register3");
+        await AsyncStorage.setItem("userId", data.user?.id || userId);
+        await AsyncStorage.setItem("token", data.token);
+        await AsyncStorage.setItem("user", JSON.stringify(data.user));
+        await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+        navigation.navigate("Login");
+        console.log("Registration successful", data);
+      } else {
+        setError(data.message || "Registration failed.");
+        console.error(data);
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
       console.error("Registration error:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  {
+    loading && (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontSize: 18, color: "#007bff" }}>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView
@@ -93,69 +123,42 @@ const Register2 = () => {
           <Pressable onPress={() => navigation.goBack()}>
             <Image source={require("../../../assets/images/BackArrow.png")} />
           </Pressable>
-
-          <Image source={require("../../../assets/images/CloudIcon.png")} />
         </View>
+        <View style={{ alignItems: "center" }}>
+          <Image source={require("../../../assets/images/Meditating.png")} />
+        </View>
+
         <View style={{ gap: 48 }}>
           <View style={{ gap: 16 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              Create Your GlowInside account
-            </Text>
-            <Text style={{ fontSize: 16, opacity: 0.5 }}>
-              Personalized wellness tracking, habit building, and gentle
-              guidance to help you glow from the inside out.
+            <Text
+              style={{
+                fontSize: 32,
+                fontWeight: "bold",
+                textAlign: "center",
+                fontFamily: "AveriaSerifLibre-Bold",
+              }}
+            >
+              What should we call you?
             </Text>
           </View>
           <View style={{ gap: 20 }}>
             <View>
-              <Text style={{ fontSize: 19, color: "#333" }}>
-                Your email{" "}
-                <Text style={{ color: "#003CFE", fontSize: 19 }}>*</Text>{" "}
-              </Text>
               <TextInput
                 style={styles.input}
-                placeholder="BukayoSaka@gmail.com"
+                placeholder="Your name"
                 placeholderTextColor="gray"
-                value={email}
-                onChangeText={setEmail}
+                value={username}
+                onChangeText={setUsername}
               />
             </View>
-            <View>
-              <Text style={{ fontSize: 19, color: "#121212" }}>
-                Password{" "}
-                <Text style={{ color: "#003CFE", fontSize: 19 }}>*</Text>{" "}
-              </Text>
-              <View style={styles.inputWrapper}>
-                <TextInput
-                  ref={inputRef}
-                  style={styles.inputWithIcon}
-                  placeholder="Password (8+ characters)"
-                  placeholderTextColor="gray"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                />
-
-                <Pressable
-                  style={styles.icon}
-                  onPress={() => setShowPassword((prev) => !prev)}
-                >
-                  <Feather
-                    name={showPassword ? "eye" : "eye-off"}
-                    size={24}
-                    color="#555"
-                  />
-                </Pressable>
-              </View>
-              {error ? (
-                <Text style={{ color: "red", marginTop: 5 }}>{error}</Text>
-              ) : null}
-            </View>
           </View>
+          {error ? (
+            <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
+          ) : null}
         </View>
       </View>
       <View style={{ paddingHorizontal: 30 }}>
-        <Pressable onPress={moveToNextPage}>
+        <Pressable onPress={handleRegister} disabled={loading}>
           <LinearGradient
             colors={["#007bff", "#003cfe"]} // gradient blue shades
             start={{ x: 0, y: 0 }}
@@ -167,22 +170,12 @@ const Register2 = () => {
             </Text>
           </LinearGradient>
         </Pressable>
-        <Text style={{ textAlign: "center", color: "#BBBBB9", marginTop: 10 }}>
-          Already have a Glow account?{" "}
-          <Text
-            onPress={() => navigation.navigate("Login")}
-            style={{ color: "#003CFE", fontWeight: "bold" }}
-          >
-            Log in
-          </Text>{" "}
-          {/* Do not use this yet */}
-        </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Register2;
+export default Register3;
 
 const styles = StyleSheet.create({
   input: {

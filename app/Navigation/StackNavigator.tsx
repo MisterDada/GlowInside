@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../AuthScreens/Login";
 import Register from "../AuthScreens/Register/Register";
 import Register2 from "../AuthScreens/Register/Register2";
+import Register3 from "../AuthScreens/Register/Register3";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ const StackNavigator = () => {
                 <AuthStack.Screen name="Login" component={Login}/>
                 <AuthStack.Screen name="Register" component={Register}/>
                 <AuthStack.Screen name="Register2" component={Register2}/>
+                <AuthStack.Screen name="Register3" component={Register3}/>
             </AuthStack.Navigator>
         );
     }
