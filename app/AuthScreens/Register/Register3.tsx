@@ -17,7 +17,7 @@ import useAuthStore from "../../Store";
 type RootStackParamList = {
   Register: undefined;
   Register2: undefined;
-  Login: undefined;
+  Mood: undefined;
 };
 
 // Define the type for your auth store
@@ -82,7 +82,7 @@ const Register3 = () => {
         await AsyncStorage.setItem("token", data.token);
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
         await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
-        navigation.navigate("Login");
+        navigation.navigate("Mood");
         console.log("Registration successful", data);
       } else {
         setError(data.message || "Registration failed.");
@@ -130,6 +130,9 @@ const Register3 = () => {
 
         <View style={{ gap: 48 }}>
           <View style={{ gap: 16 }}>
+            <Text style={{textAlign: 'center', color: '#BBBBB9', fontSize: 16}}>
+              {email}
+            </Text>
             <Text
               style={{
                 fontSize: 32,

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "../AuthScreens/Login";
+import Mood from "../AuthScreens/Register/Mood";
 import Register from "../AuthScreens/Register/Register";
 import Register2 from "../AuthScreens/Register/Register2";
 import Register3 from "../AuthScreens/Register/Register3";
@@ -13,8 +13,8 @@ const StackNavigator = () => {
         return (
             <AuthStack.Navigator screenOptions={{
                 headerShown: false, gestureEnabled: false,
-            }} initialRouteName="Register" >
-                <AuthStack.Screen name="Login" component={Login}/>
+            }} initialRouteName="Mood" >
+                <AuthStack.Screen name="Mood" component={Mood}/>
                 <AuthStack.Screen name="Register" component={Register}/>
                 <AuthStack.Screen name="Register2" component={Register2}/>
                 <AuthStack.Screen name="Register3" component={Register3}/>
