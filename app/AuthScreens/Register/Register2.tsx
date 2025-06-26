@@ -11,7 +11,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
+  View
 } from "react-native";
 import useAuthStore from "../../Store";
 type RootStackParamList = {
@@ -29,6 +29,8 @@ type AuthStore = {
 };
 
 const Register2 = () => {
+
+
   const { email, password, setEmail, setPassword, username } =
     useAuthStore() as AuthStore;
 
@@ -60,7 +62,7 @@ const Register2 = () => {
       const userId = data.userId;
 
       if (res.ok) {
-        console.log(userId)
+        console.log(userId);
         if (userId) {
           await AsyncStorage.setItem("userId", userId);
         }
@@ -78,7 +80,7 @@ const Register2 = () => {
         flex: 1,
         justifyContent: "space-between",
         backgroundColor: "#FAF9F6",
-        paddingVertical: 20
+        paddingVertical: 20,
       }}
     >
       <View style={{ paddingHorizontal: 30, gap: 80, paddingTop: 40 }}>
@@ -100,16 +102,18 @@ const Register2 = () => {
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
               Create Your GlowInside account
             </Text>
-            <Text style={{ fontSize: 16, opacity: 0.5 }}>
+            <Text style={{ fontSize: 16, color: "#C8C7C5", letterSpacing: -1 }}>
               Personalized wellness tracking, habit building, and gentle
-              guidance to help you glow from the inside out.
+              guidance to help you{" "}
+              <Text style={{ color: "#FF8092" }}>
+                glow from the inside out.
+              </Text>
             </Text>
           </View>
           <View style={{ gap: 20 }}>
             <View>
-              <Text style={{ fontSize: 19, color: "#333" }}>
-                Your email{" "}
-                <Text style={{ color: "#003CFE", fontSize: 19 }}>*</Text>{" "}
+              <Text style={{ color: "#333", paddingLeft: 7 }}>
+                Your email <Text style={{ color: "#003CFE" }}>*</Text>{" "}
               </Text>
               <TextInput
                 style={styles.input}
@@ -120,9 +124,9 @@ const Register2 = () => {
               />
             </View>
             <View>
-              <Text style={{ fontSize: 19, color: "#121212" }}>
+              <Text style={{ color: "#121212", paddingLeft: 7 }}>
                 Password{" "}
-                <Text style={{ color: "#003CFE", fontSize: 19 }}>*</Text>{" "}
+                <Text style={{ color: "#003CFE", }}>*</Text>{" "}
               </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
@@ -170,9 +174,9 @@ const Register2 = () => {
           Already have a Glow account?{" "}
           <Text
             onPress={() => navigation.navigate("Login")}
-            style={{ color: "#003CFE", fontWeight: "bold" }}
+            style={{ color: "hsl(226, 100.00%, 49.80%)" }}
           >
-            Log in
+            Login
           </Text>{" "}
           {/* Do not use this yet */}
         </Text>
@@ -188,8 +192,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#EAEAEA",
     padding: 20,
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 10,
+    letterSpacing: -1
   },
   inputWrapper: {
     flexDirection: "row",
@@ -203,6 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingRight: 40, // space for the icon
+    letterSpacing: -1
   },
   button: {
     backgroundColor: "#003CFE",

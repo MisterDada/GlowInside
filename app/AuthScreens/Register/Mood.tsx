@@ -30,7 +30,7 @@ const Login = () => {
     showAnim.setValue(0);
     Animated.timing(showAnim, {
       toValue: 1,
-      duration: 2000,
+      duration: 500,
       useNativeDriver: true,
     }).start();
   };
@@ -143,16 +143,9 @@ const Login = () => {
               width: "100%",
             }}
           >
-            {moods.map((mood, idx) => (
+            {moods.map((mood) => (
               <View key={mood.label} style={{ alignItems: "center" }}>
                 <Image source={mood.img} />
-                <Text
-                  style={{
-                    color: value === idx + 1 ? "#121212" : "#BBBBB9",
-                  }}
-                >
-                  {mood.label}
-                </Text>
               </View>
             ))}
           </View>
