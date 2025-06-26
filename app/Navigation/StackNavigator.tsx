@@ -3,6 +3,7 @@ import Mood from "../AuthScreens/Register/Mood";
 import Register from "../AuthScreens/Register/Register";
 import Register2 from "../AuthScreens/Register/Register2";
 import Register3 from "../AuthScreens/Register/Register3";
+import Tailor from "../AuthScreens/Register/Tailor";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ const StackNavigator = () => {
                 <AuthStack.Screen name="Register" component={Register}/>
                 <AuthStack.Screen name="Register2" component={Register2}/>
                 <AuthStack.Screen name="Register3" component={Register3}/>
+                <AuthStack.Screen name="Tailor" component={Tailor} />
             </AuthStack.Navigator>
         );
     }

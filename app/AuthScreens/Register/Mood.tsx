@@ -1,7 +1,10 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   SafeAreaView,
@@ -15,13 +18,21 @@ type AuthStore = {
   username: string;
 };
 
+type RootStackParamList ={
+  Tailor: undefined;
+}
+
 const Login = () => {
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const { username } = useAuthStore() as AuthStore;
 
   const [value, setValue] = useState(1);
 
   const [color, setColor] = useState(["#BBBBB9", "#000000"]);
   const [selectedMood, setSelectedMood] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const setMood = () => {
@@ -41,6 +52,17 @@ const Login = () => {
     };
     setMood();
   }, [value]);
+
+  const Load = async () => {
+    await AsyncStorage.setItem("Mood", selectedMood);
+
+    setLoading(true);
+    navigation.navigate("Tailor")
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return;
+  };
 
   const moods = [
     {
@@ -117,7 +139,7 @@ const Login = () => {
             ))}
           </View>
           <Slider
-            style={{ width: "100%", height: 40, alignSelf: "center"}}
+            style={{ width: "100%", height: 40, alignSelf: "center" }}
             thumbImage={require("../../../assets/images/SliderThumb.png")}
             thumbTintColor="#003CFE"
             minimumValue={1}
@@ -132,21 +154,31 @@ const Login = () => {
             maximumTrackTintColor="#FFFFFF"
           />
         </View>
-        <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 106}}>
-          <Text style={{color: "#BBBBB9"}}>I'm feeling</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 106,
+          }}
+        >
+          <Text style={{ color: "#BBBBB9" }}>I'm feeling</Text>
           <Text>{selectedMood}</Text>
         </View>
       </View>
       <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
-        <Pressable>
+        <Pressable onPress={Load}>
           <LinearGradient
             colors={["#007bff", "#003cfe"]} // gradient blue shades
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.button}
           >
-            <Text style={{ textAlign: "center", color: "white", fontSize: 16 }}>
-              Continue
+            <Text style={{ textAlign: "center", color: "white" }}>
+              {loading ? (
+                <ActivityIndicator size="small" color="white" />
+              ) : (
+                "Continue"
+              )}
             </Text>
           </LinearGradient>
         </Pressable>
@@ -166,5 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: 47,
+    alignItems: "center",
   },
 });
