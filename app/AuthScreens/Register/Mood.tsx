@@ -1,6 +1,6 @@
 import Slider from "@react-native-community/slider";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Pressable,
@@ -18,10 +18,29 @@ type AuthStore = {
 const Login = () => {
   const { username } = useAuthStore() as AuthStore;
 
-  const [value, setValue] = useState(0);
-  // const [color, setColor] = useState("#BBBBB9");
+  const [value, setValue] = useState(1);
 
   const [color, setColor] = useState(["#BBBBB9", "#000000"]);
+  const [selectedMood, setSelectedMood] = useState("");
+
+  useEffect(() => {
+    const setMood = () => {
+      if (value === 1) {
+        setSelectedMood("Great");
+      } else if (value === 2) {
+        setSelectedMood("Okay");
+      } else if (value === 3) {
+        setSelectedMood("Anxious");
+      } else if (value === 4) {
+        setSelectedMood("Down");
+      } else if (value === 5) {
+        setSelectedMood("Tired");
+      } else if (value === 6) {
+        setSelectedMood("Stressed");
+      }
+    };
+    setMood();
+  }, [value]);
 
   const moods = [
     {
@@ -49,32 +68,6 @@ const Login = () => {
       img: require("../../../assets/images/Emojis/Fire.png"),
     },
   ];
-
-  // Function to handle color change based on slider value
-  // const handleColorChange = (val: number) => {
-  //   switch (val) {
-  //     case 1:
-  //       setColor("#00FF00"); // Green for Great
-  //       break;
-  //     case 2:
-  //       setColor("#FFFF00"); // Yellow for Okay
-  //       break;
-  //     case 3:
-  //       setColor("#FFA500"); // Orange for Anxious
-  //       break;
-  //     case 4:
-  //       setColor("#FF0000"); // Red for Down
-  //       break;
-  //     case 5:
-  //       setColor("#800080"); // Purple for Tired
-  //       break;
-  //     case 6:
-  //       setColor("#0000FF"); // Blue for Stressed
-  //       break;
-  //     default:
-  //       setColor("#BBBBB9"); // Default color
-  //   }
-  // };
 
   return (
     <SafeAreaView
@@ -124,7 +117,7 @@ const Login = () => {
             ))}
           </View>
           <Slider
-            style={{ width: "100%", height: 40, alignSelf: "center" }}
+            style={{ width: "100%", height: 40, alignSelf: "center"}}
             thumbImage={require("../../../assets/images/SliderThumb.png")}
             thumbTintColor="#003CFE"
             minimumValue={1}
@@ -139,8 +132,12 @@ const Login = () => {
             maximumTrackTintColor="#FFFFFF"
           />
         </View>
+        <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 106}}>
+          <Text style={{color: "#BBBBB9"}}>I'm feeling</Text>
+          <Text>{selectedMood}</Text>
+        </View>
       </View>
-      <View style={{ paddingHorizontal: 30 }}>
+      <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
         <Pressable>
           <LinearGradient
             colors={["#007bff", "#003cfe"]} // gradient blue shades

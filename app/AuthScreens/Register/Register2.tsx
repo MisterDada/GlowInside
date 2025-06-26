@@ -20,7 +20,6 @@ type RootStackParamList = {
   Login: undefined;
 };
 
-// Define the type for your auth store
 type AuthStore = {
   email: string;
   password: string;
@@ -30,7 +29,6 @@ type AuthStore = {
 };
 
 const Register2 = () => {
-  // Properly type useAuthStore
   const { email, password, setEmail, setPassword, username } =
     useAuthStore() as AuthStore;
 
@@ -80,6 +78,7 @@ const Register2 = () => {
         flex: 1,
         justifyContent: "space-between",
         backgroundColor: "#FAF9F6",
+        paddingVertical: 20
       }}
     >
       <View style={{ paddingHorizontal: 30, gap: 80, paddingTop: 40 }}>

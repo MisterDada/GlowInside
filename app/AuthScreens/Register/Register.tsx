@@ -16,7 +16,6 @@ import {
 type RootStackParamList = {
   Login: undefined;
   Register2: undefined;
-  // add other screens here if needed
 };
 
 const Register = () => {
