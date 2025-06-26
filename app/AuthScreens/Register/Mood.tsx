@@ -23,7 +23,7 @@ type RootStackParamList = {
   Tailor: undefined;
 };
 
-const Login = () => {
+const Mood = () => {
   const showAnim = useRef(new Animated.Value(0)).current;
 
   const showMood = () => {
@@ -197,7 +197,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Mood;
 
 const styles = StyleSheet.create({
   button: {
