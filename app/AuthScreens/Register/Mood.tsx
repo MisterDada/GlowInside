@@ -2,9 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Animated,
   Image,
   Pressable,
   SafeAreaView,
@@ -18,11 +19,28 @@ type AuthStore = {
   username: string;
 };
 
-type RootStackParamList ={
+type RootStackParamList = {
   Tailor: undefined;
-}
+};
 
 const Login = () => {
+  const showAnim = useRef(new Animated.Value(0)).current;
+
+  const showMood = () => {
+    showAnim.setValue(0);
+    Animated.timing(showAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handleSliderChange = (value: number) => {
+    setValue(value);
+    showMood();
+    setColor([color[1], color[1]]);
+    showMood(); // Restart animation
+  };
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -57,7 +75,7 @@ const Login = () => {
     await AsyncStorage.setItem("Mood", selectedMood);
 
     setLoading(true);
-    navigation.navigate("Tailor")
+    navigation.navigate("Tailor");
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -146,10 +164,7 @@ const Login = () => {
             maximumValue={6}
             step={1}
             value={value}
-            onValueChange={(val) => {
-              setValue(val);
-              setColor([color[1], color[1]]);
-            }}
+            onValueChange={handleSliderChange}
             minimumTrackTintColor="#FFFFFF"
             maximumTrackTintColor="#FFFFFF"
           />
@@ -162,7 +177,9 @@ const Login = () => {
           }}
         >
           <Text style={{ color: "#BBBBB9" }}>I'm feeling</Text>
-          <Text>{selectedMood}</Text>
+          <Animated.Text style={[{ color: "black" }, { opacity: showAnim }]}>
+            {selectedMood}
+          </Animated.Text>
         </View>
       </View>
       <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
