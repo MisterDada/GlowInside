@@ -43,6 +43,7 @@ const Login = () => {
   const inputRef = useRef<TextInput>(null);
 
   const moveToNextPage = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
         "https://chatapp-backend-avmf.onrender.com/api/auth/login",
@@ -65,13 +66,15 @@ const Login = () => {
         console.log(userId);
         if (userId) {
           await AsyncStorage.getItem("token", data.token);
-        };
-        setLoading(true);
+        }
+
         navigation.navigate("Register3"); //change to home screen later
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
       console.error("Registration error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -158,13 +161,23 @@ const Login = () => {
             end={{ x: 1, y: 1 }}
             style={styles.button}
           >
-            <Text style={{ textAlign: "center", color: "white", fontSize: 16 }}>
-              {loading ? (
-                <ActivityIndicator size="small" color="white" />
-              ) : (
-                "Login"
-              )}
-            </Text>
+            {loading ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator color="white" size="small" />
+              </View>
+            ) : (
+              <Text
+                style={{ textAlign: "center", color: "white", fontSize: 16 }}
+              >
+                Sign In
+              </Text>
+            )}
           </LinearGradient>
         </Pressable>
       </View>

@@ -5,13 +5,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import useAuthStore from "../../Store";
 type RootStackParamList = {
@@ -29,8 +30,6 @@ type AuthStore = {
 };
 
 const Register2 = () => {
-
-
   const { email, password, setEmail, setPassword, username } =
     useAuthStore() as AuthStore;
 
@@ -39,10 +38,12 @@ const Register2 = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const inputRef = useRef<TextInput>(null);
 
   const moveToNextPage = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
         "https://chatapp-backend-avmf.onrender.com/api/auth/register-step1",
@@ -71,6 +72,10 @@ const Register2 = () => {
     } catch (error) {
       setError("Something went wrong. Please try again.");
       console.error("Registration error:", error);
+      setEmail("");
+      setPassword("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,8 +130,7 @@ const Register2 = () => {
             </View>
             <View>
               <Text style={{ color: "#121212", paddingLeft: 7 }}>
-                Password{" "}
-                <Text style={{ color: "#003CFE", }}>*</Text>{" "}
+                Password <Text style={{ color: "#003CFE" }}>*</Text>{" "}
               </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
@@ -165,9 +169,23 @@ const Register2 = () => {
             end={{ x: 1, y: 1 }}
             style={styles.button}
           >
-            <Text style={{ textAlign: "center", color: "white", fontSize: 16 }}>
-              Continue
-            </Text>
+            {loading ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator color="white" size="small" />
+              </View>
+            ) : (
+              <Text
+                style={{ textAlign: "center", color: "white", fontSize: 16 }}
+              >
+                Continue
+              </Text>
+            )}
           </LinearGradient>
         </Pressable>
         <Text style={{ textAlign: "center", color: "#BBBBB9", marginTop: 10 }}>
@@ -194,7 +212,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginTop: 10,
-    letterSpacing: -1
+    letterSpacing: -1,
   },
   inputWrapper: {
     flexDirection: "row",
@@ -208,7 +226,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingRight: 40, // space for the icon
-    letterSpacing: -1
+    letterSpacing: -1,
   },
   button: {
     backgroundColor: "#003CFE",

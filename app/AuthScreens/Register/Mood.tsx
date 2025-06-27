@@ -6,13 +6,18 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Animated,
-  Image,
   Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import Anxious from "../../../assets/images/Emojis/Anxious.svg";
+import Down from "../../../assets/images/Emojis/Down.svg";
+import Stressed from "../../../assets/images/Emojis/Fire.svg";
+import Great from "../../../assets/images/Emojis/Great.svg";
+import Smiley from "../../../assets/images/Emojis/Smiley.svg";
+import Tired from "../../../assets/images/Emojis/Tired.svg";
 import useAuthStore from "../../Store";
 
 type AuthStore = {
@@ -82,33 +87,6 @@ const Mood = () => {
     return;
   };
 
-  const moods = [
-    {
-      label: "Great",
-      img: require("../../../assets/images/Emojis/BeamingFaceWithSmilingEyes.png"),
-    },
-    {
-      label: "Okay",
-      img: require("../../../assets/images/Emojis/SlightlySmilingFace.png"),
-    },
-    {
-      label: "Anxious",
-      img: require("../../../assets/images/Emojis/ConfusedFace.png"),
-    },
-    {
-      label: "Down",
-      img: require("../../../assets/images/Emojis/PensiveFace.png"),
-    },
-    {
-      label: "Tired",
-      img: require("../../../assets/images/Emojis/SleepingFace.png"),
-    },
-    {
-      label: "Stressed",
-      img: require("../../../assets/images/Emojis/Fire.png"),
-    },
-  ];
-
   return (
     <SafeAreaView
       style={{
@@ -143,11 +121,12 @@ const Mood = () => {
               width: "100%",
             }}
           >
-            {moods.map((mood) => (
-              <View key={mood.label} style={{ alignItems: "center" }}>
-                <Image source={mood.img} />
-              </View>
-            ))}
+            <Smiley width={40} height={40} />
+            <Great width={40} height={40} />
+            <Anxious width={40} height={40} />
+            <Down width={40} height={40} />
+            <Tired width={40} height={40} />
+            <Stressed width={40} height={40} />
           </View>
           <Slider
             style={{ width: "100%", height: 40, alignSelf: "center" }}
