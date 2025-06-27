@@ -1,7 +1,9 @@
+import Modal from "@/app/Modal";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Button,
   Dimensions,
   Pressable,
   SafeAreaView,
@@ -18,6 +20,7 @@ const screenHeight = Dimensions.get("window").height;
 export default function SelectableBox() {
   const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
   const boxes = [
     { id: 1, label: "Manage Anxiety" },
@@ -33,6 +36,7 @@ export default function SelectableBox() {
       prev.includes(id) ? prev.filter((boxId) => boxId !== id) : [...prev, id]
     );
   };
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
@@ -73,7 +77,7 @@ export default function SelectableBox() {
         </View>
 
         <View style={styles.footer}>
-          <Pressable style={{width: screenWidth * 0.85}}>
+          <Pressable onPress={() => setShowModal(true)} style={{width: screenWidth * 0.85}}>
             <LinearGradient
               colors={["#007bff", "#003cfe"]}
               start={{ x: 0, y: 0 }}
@@ -88,7 +92,11 @@ export default function SelectableBox() {
             </LinearGradient>
           </Pressable>
           <Text style={styles.later}>I'll do this later</Text>
-        </View>
+        </View> 
+       < Modal visible={showModal}>
+        <Text>This is inside the modal!</Text>
+        <Button title="Close Modal" onPress={() => setShowModal(false)} />
+      </Modal>
       </ScrollView>
     </SafeAreaView>
   );
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
   box: {
     width: screenWidth * 0.85,
     height: 50,
-    borderWidth: 2,
+    borderWidth: 0.5,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
