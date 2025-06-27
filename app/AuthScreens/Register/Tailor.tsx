@@ -2,115 +2,169 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   Pressable,
   SafeAreaView,
+  ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
+  View
 } from "react-native";
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 export default function SelectableBox() {
-  const [selected, setSelected] = useState(false);
+  const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const boxes = [
+    { id: 1, label: "Manage Anxiety" },
+    { id: 2, label: "Boost Daily Mood" },
+    { id: 3, label: "Improve Sleep" },
+    { id: 4, label: "Be More Mindful" },
+    { id: 5, label: "Build Positive Habits" },
+    { id: 6, label: "I'm Not Sure" },
+  ];
+
+  const toggleBox = (id: number) => {
+    setSelectedBoxes((prev) =>
+      prev.includes(id) ? prev.filter((boxId) => boxId !== id) : [...prev, id]
+    );
+  };
+
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "#FAF9F6",
-        justifyContent: "space-between",
-      }}
-    >
-      <View></View>
-      <View
-        style={{
-          paddingHorizontal: 20,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View style={{ gap: 16, paddingHorizontal: 30, paddingBottom: 38.26 }}>
-          <Text style={{ textAlign: "center", color: "#BBBBB9", fontSize: 16 }}>
-            Your Goals
-          </Text>
-          <Text
-            style={{
-              fontSize: 32,
-              fontWeight: "bold",
-              textAlign: "center",
-              fontFamily: "AveriaSerifLibre-Bold",
-            }}
-          >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
+      <StatusBar barStyle={"dark-content"} />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.textGroup}>
+          <Text style={styles.subtitle}>Your Goals</Text>
+          <Text style={styles.title}>
             Is there anything you’d like to focus on?
           </Text>
         </View>
-        <Pressable onPress={() => setSelected(!selected)}>
-          <View
-            style={[
-              styles.box,
-              selected ? styles.boxSelected : styles.boxUnselected,
-            ]}
-          >
-            
-            <Text>Manage Anxiety</Text>
-            <View>{selected && <Text style={styles.checkmark}>✓</Text>}</View>
-          </View>
-        </Pressable>
-      </View>
-      <View style={{ paddingHorizontal: 20, paddingBottom: 40 }}>
-        <Pressable>
-          <LinearGradient
-            colors={["#007bff", "#003cfe"]} // gradient blue shades
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.button}
-          >
-            <Text style={{ textAlign: "center", color: "white" }}>
+
+        <View style={styles.boxList}>
+          {boxes.map((box) => {
+            const selected = selectedBoxes.includes(box.id);
+            return (
+              <Pressable
+                key={box.id}
+                onPress={() => toggleBox(box.id)}
+                style={[
+                  styles.box,
+                  selected ? styles.boxSelected : styles.boxUnselected,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.boxLabel,
+                    selected && styles.selectedText,
+                  ]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                >
+                  {box.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+
+        <View style={styles.footer}>
+          <Pressable style={{width: screenWidth * 0.85}}>
+            <LinearGradient
+              colors={["#007bff", "#003cfe"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.button}
+            >
               {loading ? (
                 <ActivityIndicator size="small" color="white" />
               ) : (
-                "Continue"
+                <Text style={styles.buttonText}>Continue</Text>
               )}
-            </Text>
-          </LinearGradient>
-        </Pressable>
-      </View>
+            </LinearGradient>
+          </Pressable>
+          <Text style={styles.later}>I'll do this later</Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
-    width: 304,
-    height: 50,
-    borderWidth: 0,
-    alignItems: "center",
+  scrollContainer: {
+    padding: 20,
+    paddingBottom: 40,
     justifyContent: "center",
+    paddingTop: screenHeight * 0.2
+  },
+  textGroup: {
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  subtitle: {
+    color: "#BBBBB9",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "AveriaSerifLibre-Bold",
+    marginTop: 10,
+  },
+  boxList: {
+    gap: 12,
+    alignItems: "center",
+  },
+  box: {
+    width: screenWidth * 0.85,
+    height: 50,
+    borderWidth: 2,
     borderRadius: 100,
-    flexDirection: "row",
-    paddingHorizontal: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   boxSelected: {
     borderColor: "#FF6B81",
-    borderWidth: 2,
-    gap: 10
+    backgroundColor: "#FFF0F3",
   },
   boxUnselected: {
-    borderColor: "gray",
-    backgroundColor: "white",
+    borderColor: "#D3D3D3",
   },
-  checkmark: {
-    fontSize: 18,
+  boxLabel: {
+    fontSize: 16,
+    color: "#000",
+    fontWeight: "500",
+  },
+  selectedText: {
     color: "#FF6B81",
   },
+  footer: {
+    marginTop: 40,
+    alignItems: "center",
+    gap: 12,
+  },
   button: {
-    backgroundColor: "#003CFE",
     padding: 10,
-    marginVertical: 10,
     borderRadius: 100,
-    justifyContent: "center",
     width: "100%",
     height: 47,
+    justifyContent: "center",
     alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  later: {
+    textAlign: "center",
+    color: "#BBBBB9",
+    fontSize: 14,
   },
 });

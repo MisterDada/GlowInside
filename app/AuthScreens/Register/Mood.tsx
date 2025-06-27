@@ -2,12 +2,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Animated,
   Pressable,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -95,6 +96,7 @@ const Mood = () => {
         backgroundColor: "#FAF9F6",
       }}
     >
+      <StatusBar barStyle={"dark-content"} />
       <View>{/* Maybe a back button in this view */}</View>
       <View>
         <View style={{ gap: 16, paddingHorizontal: 30 }}>
