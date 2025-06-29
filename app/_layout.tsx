@@ -1,6 +1,7 @@
 import * as font from "expo-font";
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import StackNavigator from "./Navigation/StackNavigator";
 import SplashScreen from "./SplashScreen";
 
@@ -17,8 +18,6 @@ export default function RootLayout() {
       useNativeDriver: true,
     }).start();
   };
-
-
 
   useEffect(() => {
     const loadFonts = async () => {
@@ -40,19 +39,21 @@ export default function RootLayout() {
 
   if (!fontsLoaded || showSplash) {
     return (
-      <Animated.View
-        style={[
-          {
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#FF6B81",
-          },
-          { opacity: fadeAnim },
-        ]}
-      >
-        <SplashScreen />
-      </Animated.View>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Animated.View
+          style={[
+            {
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#FF6B81",
+            },
+            { opacity: fadeAnim },
+          ]}
+        >
+          <SplashScreen />
+        </Animated.View>
+      </GestureHandlerRootView>
     );
   }
 

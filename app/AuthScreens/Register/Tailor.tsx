@@ -1,9 +1,7 @@
-import Modal from "@/app/Modal";
+import ModalPage from "@/app/Components/Modal";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
-  Button,
   Dimensions,
   Pressable,
   SafeAreaView,
@@ -11,8 +9,10 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
+import Lightbulb from "../../../assets/images/Lightbulb.svg";
+import Success from "../../../assets/images/Success.svg";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -20,7 +20,7 @@ const screenHeight = Dimensions.get("window").height;
 export default function SelectableBox() {
   const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const boxes = [
     { id: 1, label: "Manage Anxiety" },
@@ -36,7 +36,6 @@ export default function SelectableBox() {
       prev.includes(id) ? prev.filter((boxId) => boxId !== id) : [...prev, id]
     );
   };
-
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
@@ -62,10 +61,7 @@ export default function SelectableBox() {
                 ]}
               >
                 <Text
-                  style={[
-                    styles.boxLabel,
-                    selected && styles.selectedText,
-                  ]}
+                  style={[styles.boxLabel, selected && styles.selectedText]}
                   numberOfLines={1}
                   adjustsFontSizeToFit
                 >
@@ -77,26 +73,82 @@ export default function SelectableBox() {
         </View>
 
         <View style={styles.footer}>
-          <Pressable onPress={() => setShowModal(true)} style={{width: screenWidth * 0.85}}>
+          <Pressable
+            onPress={() => setShowModal(true)}
+            style={{ width: screenWidth * 0.85 }}
+          >
             <LinearGradient
               colors={["#007bff", "#003cfe"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.button}
             >
-              {loading ? (
-                <ActivityIndicator size="small" color="white" />
-              ) : (
-                <Text style={styles.buttonText}>Continue</Text>
-              )}
+              <Text style={styles.buttonText}>Continue</Text>
             </LinearGradient>
           </Pressable>
           <Text style={styles.later}>I'll do this later</Text>
-        </View> 
-       < Modal visible={showModal}>
-        <Text>This is inside the modal!</Text>
-        <Button title="Close Modal" onPress={() => setShowModal(false)} />
-      </Modal>
+        </View>
+        <ModalPage visible={showModal} onClose={() => setShowModal(false)}>
+          <View>
+            <Success style={{ zIndex: 1 }} />
+          </View>
+          <View>
+            <View style={{ gap: 18 }}>
+              <Text
+                style={{
+                  fontFamily: "AveriaSerifLibre-Bold",
+                  fontSize: 32,
+                  textAlign: "center",
+                }}
+              >
+                You're All Set To Glow
+              </Text>
+              <Text style={{ textAlign: "center", lineHeight: 24 }}>
+                {" "}
+                Welcome to GlowInside✨ – your space to grow, heal, and let your
+                authentic self shine.
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "white",
+                borderRadius: 12,
+                flexDirection: "row",
+                padding: 12,
+                gap: 10,
+                justifyContent: "center",
+                alignItems: "flex-start",
+                marginVertical: 16,
+              }}
+            >
+              <View>
+                <Lightbulb />
+              </View>
+              <View style={{ justifyContent: "center", flex: 1 }}>
+                <Text style={{ color: "#333333", marginBottom: 4 }}>
+                  Quick Glow tip
+                </Text>
+                <Text
+                  style={{ fontSize: 13, lineHeight: 20, letterSpacing: -0.5 }}
+                >
+                  Explore different goals – you might discover something that
+                  resonates unexpectedly. Trust your instincts and stay curious
+                  about what feels right
+                </Text>
+              </View>
+            </View>
+            <Pressable style={{ width: screenWidth * 0.85 }}>
+              <LinearGradient
+                colors={["#007bff", "#003cfe"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText}>Let's see my Board</Text>
+              </LinearGradient>
+            </Pressable>
+          </View>
+        </ModalPage>
       </ScrollView>
     </SafeAreaView>
   );
@@ -107,7 +159,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
     justifyContent: "center",
-    paddingTop: screenHeight * 0.2
+    paddingTop: screenHeight * 0.2,
   },
   textGroup: {
     alignItems: "center",
@@ -168,7 +220,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold",
   },
   later: {
     textAlign: "center",

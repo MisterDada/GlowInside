@@ -112,7 +112,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/GoogleIcon.png")}
+              source={require("../../../assets/images/Logos/GoogleIcon.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -128,7 +128,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/AppleLogo.png")}
+              source={require("../../../assets/images/Logos/AppleLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -144,7 +144,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/FacebookLogo.png")}
+              source={require("../../../assets/images/Logos/FacebookLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
