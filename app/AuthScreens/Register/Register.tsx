@@ -18,6 +18,10 @@ type RootStackParamList = {
   Register2: undefined;
 };
 
+
+  const width = Dimensions.get("window").width
+  const height = Dimensions.get("window").height
+
 const Register = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -73,7 +77,7 @@ const Register = () => {
         <Animated.Image
           source={require("../../../assets/images/Register-image.png")}
           style={[
-            { width: Dimensions.get("window").width - 100, height: 300 },
+            { width: width - 100, height: height * 0.3 },
             { transform: [{ translateY: moveAnim }] },
             { opacity: showAnim },
           ]}

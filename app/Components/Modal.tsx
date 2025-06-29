@@ -37,7 +37,7 @@ export default ModalPage;
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: "hsla(0, 0.00%, 23.50%, 0.26)", // semi-transparent background
+    backgroundColor: "hsla(0, 0.00%, 23.50%, 0.13)", // semi-transparent background
     justifyContent: "flex-end",
     alignItems: "center",
   },

@@ -3,9 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   Image,
   Pressable,
   SafeAreaView,
@@ -38,6 +39,7 @@ const Register2 = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [required, setRequired] = useState("*")
   const [loading, setLoading] = useState(false);
 
   const inputRef = useRef<TextInput>(null);
@@ -79,16 +81,34 @@ const Register2 = () => {
     }
   };
 
+
+  const loadErrors = useEffect(() =>{
+    checkRegistration()
+  })
+
+  const checkRegistration = () =>{
+    if (!email || !password) {
+      setRequired("*")
+  } else {
+    setRequired("")
+  }
+  }
+
+  
+
+
+  const width = Dimensions.get("window").width
+  const height = Dimensions.get("window").height
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         justifyContent: "space-between",
         backgroundColor: "#FAF9F6",
-        paddingVertical: 20,
       }}
     >
-      <View style={{ paddingHorizontal: 30, gap: 80, paddingTop: 40 }}>
+      <View style={{ paddingHorizontal: 30, gap: height * 0.1 , paddingTop: 40 }}>
         <View
           style={{
             flexDirection: "row",
@@ -118,7 +138,7 @@ const Register2 = () => {
           <View style={{ gap: 20 }}>
             <View>
               <Text style={{ color: "#333", paddingLeft: 7 }}>
-                Your email <Text style={{ color: "#003CFE" }}>*</Text>{" "}
+                Your email <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <TextInput
                 style={styles.input}
@@ -130,7 +150,7 @@ const Register2 = () => {
             </View>
             <View>
               <Text style={{ color: "#121212", paddingLeft: 7 }}>
-                Password <Text style={{ color: "#003CFE" }}>*</Text>{" "}
+                Password <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
