@@ -25,13 +25,12 @@ type RootStackParamList = {
 type AuthStore = {
   email: string;
   password: string;
-  username: string;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
 };
 
 const Register2 = () => {
-  const { email, password, setEmail, setPassword, username } =
+  const { email, password, setEmail, setPassword } =
     useAuthStore() as AuthStore;
 
   const navigation =
