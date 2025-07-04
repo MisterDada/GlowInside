@@ -1,4 +1,5 @@
 import ModalPage from "@/app/Components/Modal";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
@@ -14,10 +15,16 @@ import {
 import Lightbulb from "../../../assets/images/Lightbulb.svg";
 import Success from "../../../assets/images/Success.svg";
 
+type RootStackParamList = {
+  Home: undefined;
+};
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export default function SelectableBox() {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -137,7 +144,13 @@ export default function SelectableBox() {
                 </Text>
               </View>
             </View>
-            <Pressable style={{ width: screenWidth * 0.85 }}>
+            <Pressable
+              onPress={() => {
+                setShowModal(false);
+                navigation.navigate("Home");
+              }}
+              style={{ width: screenWidth * 0.85 }}
+            >
               <LinearGradient
                 colors={["#007bff", "#003cfe"]}
                 start={{ x: 0, y: 0 }}
