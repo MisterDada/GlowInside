@@ -10,9 +10,11 @@ import {
   View,
 } from "react-native";
 import CardFace from "../assets/images/CardFace.svg";
+import Meditate from "../assets/images/Meditate.svg";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+// const fontSize = Dimensions.get("screen").fontScale;
 
 const formatDate = (date: Date) => {
   const days = [
@@ -66,7 +68,7 @@ export default function Index() {
       name: "Why Meditate",
       description: "A few calm minutes can ease stress and clear your mind",
       timeRange: "3-6 mins",
-      image: CardFace,
+      image: Meditate,
     },
     {
       name: "Take a moment.",
@@ -119,79 +121,80 @@ export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
       <StatusBar barStyle="dark-content" />
-
-      <View style={styles.container}>
-        <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
-          Good {timeOfDay}
-        </Text>
-        <Text style={{ fontSize: 12, color: "#333333" }}>
-          {formatDate(myDate)}
-        </Text>
-      </View>
-      <View style={{ height: screenHeight * 0.3 }}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            alignItems: "center",
-            paddingHorizontal: 16,
-          }}
-        >
-          {cardData.map((card, idx) => (
-            <View
-              key={idx}
-              style={{
-                height: screenHeight * 0.16,
-                backgroundColor: card.backgroundColor,
-                width: screenWidth * 0.8,
-                marginRight: 16,
-                marginTop: 10,
-                borderRadius: 25,
-                flexDirection: "row",
-                alignItems: "baseline",
-                justifyContent: "space-between",
-                overflow: "hidden",
-              }}
-            >
-              <View style={{ padding: 20, gap: 30 }}>
-                <View style={{ paddingLeft: 10 }}>
-                  <Text
-                    style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}
-                  >
-                    You're working on
-                  </Text>
-                  <Text style={{ color: "#333333", fontSize: 16 }}>
-                    {card.title}
-                  </Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
+            Good {timeOfDay}
+          </Text>
+          <Text style={{ fontSize: 12, color: "#333333" }}>
+            {formatDate(myDate)}
+          </Text>
+        </View>
+        <View style={{ height: screenHeight * 0.3 }}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              alignItems: "center",
+              paddingHorizontal: 16,
+            }}
+          >
+            {cardData.map((card, idx) => (
+              <View
+                key={idx}
+                style={{
+                  height: screenHeight * 0.16,
+                  backgroundColor: card.backgroundColor,
+                  width: screenWidth * 0.8,
+                  marginRight: 16,
+                  marginTop: 10,
+                  borderRadius: 25,
+                  flexDirection: "row",
+                  alignItems: "baseline",
+                  justifyContent: "space-between",
+                  overflow: "hidden",
+                }}
+              >
+                <View style={{ padding: 20, gap: 30 }}>
+                  <View style={{ paddingLeft: 10 }}>
+                    <Text
+                      style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}
+                    >
+                      You're working on
+                    </Text>
+                    <Text style={{ color: "#333333", fontSize: 16 }}>
+                      {card.title}
+                    </Text>
+                  </View>
+                  <View>
+                    <Pressable
+                      style={{
+                        width: "100%",
+                        padding: 12,
+                        backgroundColor: "#FAF9F6",
+                        borderRadius: 100,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Text
+                        style={{ letterSpacing: -0.5, textAlign: "center" }}
+                      >
+                        {card.label}
+                      </Text>
+                    </Pressable>
+                  </View>
                 </View>
                 <View>
-                  <Pressable
-                    style={{
-                      width: "100%",
-                      padding: 12,
-                      backgroundColor: "#FAF9F6",
-                      borderRadius: 100,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{ letterSpacing: -0.5, textAlign: "center" }}>
-                      {card.label}
-                    </Text>
-                  </Pressable>
+                  <CardFace />
                 </View>
               </View>
-              <View>
-                <CardFace />
-              </View>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
-      <View style={{ flex: 1, paddingBottom: 20 }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={{ flex: 1, paddingBottom: 20, paddingHorizontal: 20 }}>
           {wellnessFocus.map((focus, idx) => (
             <View key={idx} style={styles.focus}>
-              <View style={{ maxWidth: "50%", gap: 5 }}>
+              <View style={{ maxWidth: "50%", gap: 5, padding: 20 }}>
                 <Text style={{ fontSize: 16, color: "#333333" }}>
                   {focus.name}
                 </Text>
@@ -202,10 +205,13 @@ export default function Index() {
                   {focus.timeRange}
                 </Text>
               </View>
+              <View>
+                <focus.image />
+              </View>
             </View>
           ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -221,10 +227,12 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: "white",
     borderRadius: 16,
-    padding: 16,
-    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
     alignSelf: "flex-end",
     height: 120,
+    flexDirection: "row",
+    overflow: "hidden",
   },
 });
