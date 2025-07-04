@@ -11,28 +11,33 @@ const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-    const AuthStackNavigator = () => {
-        return (
-            <AuthStack.Navigator screenOptions={{
-                headerShown: false, gestureEnabled: false,
-            }} initialRouteName="Tailor" >
-                <AuthStack.Screen name="Mood" component={Mood}/>
-                <AuthStack.Screen name="Register" component={Register}/>
-                <AuthStack.Screen name="Register2" component={Register2}/>
-                <AuthStack.Screen name="Register3" component={Register3}/>
-                <AuthStack.Screen name="Tailor" component={Tailor} />
-                <AuthStack.Screen name="Login" component={Login} />
-            </AuthStack.Navigator>
-        );
-    }
-
+  const AuthStackNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Auth" component={AuthStackNavigator} />
-            <Stack.Screen name="Home" component={TabNavigator} />
-        </Stack.Navigator>
+      <AuthStack.Navigator
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+        initialRouteName="Tailor"
+      >
+        <AuthStack.Screen name="Mood" component={Mood} />
+        <AuthStack.Screen name="Register" component={Register} />
+        <AuthStack.Screen name="Register2" component={Register2} />
+        <AuthStack.Screen name="Register3" component={Register3} />
+        <AuthStack.Screen name="Tailor" component={Tailor} />
+        <AuthStack.Screen name="Login" component={Login} />
+      </AuthStack.Navigator>
     );
-    
-}
+  };
 
-export default StackNavigator
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, gestureEnabled: false }}
+    >
+      <Stack.Screen name="Auth" component={AuthStackNavigator} />
+      <Stack.Screen name="Home" component={TabNavigator} />
+    </Stack.Navigator>
+  );
+};
+
+export default StackNavigator;

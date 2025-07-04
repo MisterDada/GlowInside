@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import {
   Dimensions,
+  Pressable,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import CardFace from "../assets/images/CardFace.svg";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -58,6 +61,41 @@ const formatDate = (date: Date) => {
 };
 
 export default function Index() {
+  const wellnessFocus = [
+    {
+      name: "Why Meditate",
+      description: "A few calm minutes can ease stress and clear your mind",
+      timeRange: "3-6 mins",
+      image: CardFace,
+    },
+    {
+      name: "Take a moment.",
+      description:
+        "Like a campfire for your mind — quiet, warm, and grounding.",
+      timeRange: "3-6 mins",
+      image: CardFace,
+    },
+    {
+      name: "Why Meditate",
+      description: "A few calm minutes can ease stress and clear your mind",
+      timeRange: "3-6 mins",
+      image: CardFace,
+    },
+  ];
+
+  const cardData = [
+    {
+      backgroundColor: "#CCD8FF",
+      label: "3-minute breathing session",
+      title: "Managing Anxiety",
+    },
+    {
+      backgroundColor: "#FFE0E5",
+      label: "5 day detox",
+      title: "Managing Anxiety",
+    },
+  ];
+
   const myDate = new Date();
   const [timeOfDay, setTimeOfDay] = useState("");
 
@@ -67,7 +105,7 @@ export default function Index() {
   const getTimeOfDay = () => {
     if (time >= 0 && time < 12) {
       setTimeOfDay("Morning");
-    } else if (time >= 12 && time <= 16) {
+    } else if (time >= 12 && time < 16) {
       setTimeOfDay("Afternoon");
     } else {
       setTimeOfDay("Evening");
@@ -81,6 +119,7 @@ export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
       <StatusBar barStyle="dark-content" />
+
       <View style={styles.container}>
         <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
           Good {timeOfDay}
@@ -89,14 +128,103 @@ export default function Index() {
           {formatDate(myDate)}
         </Text>
       </View>
+      <View style={{ height: screenHeight * 0.3 }}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            alignItems: "center",
+            paddingHorizontal: 16,
+          }}
+        >
+          {cardData.map((card, idx) => (
+            <View
+              key={idx}
+              style={{
+                height: screenHeight * 0.16,
+                backgroundColor: card.backgroundColor,
+                width: screenWidth * 0.8,
+                marginRight: 16,
+                marginTop: 10,
+                borderRadius: 25,
+                flexDirection: "row",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+                overflow: "hidden",
+              }}
+            >
+              <View style={{ padding: 20, gap: 30 }}>
+                <View style={{ paddingLeft: 10 }}>
+                  <Text
+                    style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}
+                  >
+                    You're working on
+                  </Text>
+                  <Text style={{ color: "#333333", fontSize: 16 }}>
+                    {card.title}
+                  </Text>
+                </View>
+                <View>
+                  <Pressable
+                    style={{
+                      width: "100%",
+                      padding: 12,
+                      backgroundColor: "#FAF9F6",
+                      borderRadius: 100,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ letterSpacing: -0.5, textAlign: "center" }}>
+                      {card.label}
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+              <View>
+                <CardFace />
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+      <View style={{ flex: 1, paddingBottom: 20 }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {wellnessFocus.map((focus, idx) => (
+            <View key={idx} style={styles.focus}>
+              <View style={{ maxWidth: "50%", gap: 5 }}>
+                <Text style={{ fontSize: 16, color: "#333333" }}>
+                  {focus.name}
+                </Text>
+                <Text style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}>
+                  {focus.description}
+                </Text>
+                <Text style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}>
+                  {focus.timeRange}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: screenHeight * 0.1,
     alignItems: "center",
+    paddingHorizontal: screenWidth * 0.1,
+  },
+  focus: {
+    minHeight: 80,
+    width: 350,
+    backgroundColor: "white",
+    borderRadius: 16,
+    padding: 16,
+    justifyContent: "center",
+    marginBottom: 20,
+    alignSelf: "flex-end",
+    height: 120,
   },
 });
