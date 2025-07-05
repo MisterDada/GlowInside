@@ -9,8 +9,8 @@ import {
   Text,
   View,
 } from "react-native";
-import CardFace from "../assets/images/CardFace.svg";
-import Meditate from "../assets/images/Meditate.svg";
+import CardFace from "../../assets/images/CardFace.svg";
+import Meditate from "../../assets/images/Meditate.svg";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -75,7 +75,7 @@ export default function Index() {
       description:
         "Like a campfire for your mind — quiet, warm, and grounding.",
       timeRange: "3-6 mins",
-      image: CardFace,
+      image: Meditate,
     },
     {
       name: "Why Meditate",
