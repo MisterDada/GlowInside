@@ -121,7 +121,10 @@ export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 30 }}
+      >
         <View style={styles.container}>
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
             Good {timeOfDay}
