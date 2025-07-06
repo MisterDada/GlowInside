@@ -1,4 +1,4 @@
-import { getDefaultConfig } from "expo/metro-config";
+const { getDefaultConfig } = require("expo/metro-config");
 
 const config = getDefaultConfig(__dirname);
 
@@ -11,4 +11,4 @@ config.resolver.assetExts = config.resolver.assetExts.filter(
 );
 config.resolver.sourceExts.push("svg");
 
-export default config;
+module.exports = config;

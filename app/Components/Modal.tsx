@@ -17,7 +17,7 @@ const ModalPage = ({
 }) => {
   return (
     <>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle="dark-content" />
       <Modal
         isVisible={visible}
         onSwipeComplete={onClose}
@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: "100%",
-    height: "80%",
+    height: "90%",
     paddingHorizontal: screenWidth * 0.1,
-    borderRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     backgroundColor: "#FAF9F6",
     justifyContent: "center",
     alignItems: "center",

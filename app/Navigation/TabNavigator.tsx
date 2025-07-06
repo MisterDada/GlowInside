@@ -4,7 +4,7 @@ import ProfileIcon from "@/assets/images/TabbarIcons/ProfileIcon.svg";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BlurView } from "expo-blur";
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import Explore from "../(tabs)/Explore";
 import Home from "../(tabs)/index";
 import Profile from "../(tabs)/Profile";
@@ -28,16 +28,19 @@ const TabNavigator = () => {
           justifyContent: "center",
           paddingHorizontal: 50,
         },
-        tabBarBackground: () => (
-          <BlurView
-            intensity={100}
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              overflow: "hidden",
-              backgroundColor: "transparent",
-            }}
-          />
-        ),
+        tabBarBackground: () =>
+          Platform.OS === "ios" ? (
+            <BlurView
+              intensity={30}
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                overflow: "hidden",
+                backgroundColor: "transparent",
+              }}
+            />
+          ) : (
+            <View style={{ flex: 1, backgroundColor: "#ffffff" }} />
+          ),
       }}
     >
       <Tab.Screen
@@ -45,7 +48,12 @@ const TabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? "#003CFE" : "#999",
+                fontSize: 14,
+              }}
+            >
               Home
             </Text>
           ),
@@ -59,7 +67,7 @@ const TabNavigator = () => {
         component={Explore}
         options={{
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 12 }}>
+            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 14 }}>
               Explore
             </Text>
           ),
@@ -73,7 +81,7 @@ const TabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 12 }}>
+            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 14 }}>
               Me
             </Text>
           ),

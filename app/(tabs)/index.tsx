@@ -87,14 +87,22 @@ export default function Index() {
 
   const cardData = [
     {
+      head: "You're working on",
+      headColor: "#A6B6F2",
       backgroundColor: "#CCD8FF",
+      buttonColor: "#BCC8F5",
       label: "3-minute breathing session",
       title: "Managing Anxiety",
+      borderColor: "#B2C5FF",
     },
     {
+      head: "You're working on",
+      headColor: "#FFB2BF",
       backgroundColor: "#FFE0E5",
+      buttonColor: "#FFB2BF",
       label: "5 day detox",
       title: "Managing Anxiety",
+      borderColor: "#FFCCD4",
     },
   ];
 
@@ -123,7 +131,7 @@ export default function Index() {
       <StatusBar barStyle="dark-content" />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 30 }}
+        contentContainerStyle={{ paddingBottom: 55 }}
       >
         <View style={styles.container}>
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
@@ -146,7 +154,6 @@ export default function Index() {
               <View
                 key={idx}
                 style={{
-                  height: screenHeight * 0.16,
                   backgroundColor: card.backgroundColor,
                   width: screenWidth * 0.8,
                   marginRight: 16,
@@ -156,16 +163,21 @@ export default function Index() {
                   alignItems: "baseline",
                   justifyContent: "space-between",
                   overflow: "hidden",
+                  borderWidth: 2,
+                  borderColor: card.borderColor,
                 }}
               >
                 <View style={{ padding: 20, gap: 30 }}>
-                  <View style={{ paddingLeft: 10 }}>
+                  <View style={{ paddingLeft: 10, gap: 5 }}>
                     <Text
-                      style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}
+                      style={{
+                        color: card.headColor,
+                        fontSize: 12,
+                      }}
                     >
-                      You're working on
+                      {card.head}
                     </Text>
-                    <Text style={{ color: "#333333", fontSize: 16 }}>
+                    <Text style={{ color: "#333333", fontSize: 18 }}>
                       {card.title}
                     </Text>
                   </View>
@@ -174,13 +186,17 @@ export default function Index() {
                       style={{
                         width: "100%",
                         padding: 12,
-                        backgroundColor: "#FAF9F6",
+                        backgroundColor: card.buttonColor,
                         borderRadius: 100,
                         justifyContent: "center",
                       }}
                     >
                       <Text
-                        style={{ letterSpacing: -0.5, textAlign: "center" }}
+                        style={{
+                          letterSpacing: -0.5,
+                          textAlign: "center",
+                          color: "white",
+                        }}
                       >
                         {card.label}
                       </Text>
@@ -193,6 +209,11 @@ export default function Index() {
               </View>
             ))}
           </ScrollView>
+        </View>
+        <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
+          <Text style={{ fontSize: 24, fontFamily: "AveriaSerifLibre-Bold" }}>
+            Your current wellness focus
+          </Text>
         </View>
         <View style={{ flex: 1, paddingBottom: 20, paddingHorizontal: 20 }}>
           {wellnessFocus.map((focus, idx) => (
