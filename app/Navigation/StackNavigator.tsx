@@ -18,7 +18,7 @@ const StackNavigator = () => {
           headerShown: false,
           gestureEnabled: false,
         }}
-        initialRouteName="Tailor"
+        initialRouteName="Register"
       >
         <AuthStack.Screen name="Mood" component={Mood} />
         <AuthStack.Screen name="Register" component={Register} />

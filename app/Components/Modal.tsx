@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: "100%",
-    height: "90%",
+    height: screenHeight * 0.8,
     paddingHorizontal: screenWidth * 0.1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

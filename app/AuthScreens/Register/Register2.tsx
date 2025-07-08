@@ -38,7 +38,7 @@ const Register2 = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [required, setRequired] = useState("*")
+  const [required, setRequired] = useState("*");
   const [loading, setLoading] = useState(false);
 
   const inputRef = useRef<TextInput>(null);
@@ -61,6 +61,10 @@ const Register2 = () => {
       );
 
       const data = await res.json();
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
       const userId = data.userId;
 
       if (res.ok) {
@@ -71,6 +75,7 @@ const Register2 = () => {
         navigation.navigate("Register3");
       }
     } catch (error) {
+      console.log(error);
       setError("Something went wrong. Please try again.");
       console.error("Registration error:", error);
       setEmail("");
@@ -80,24 +85,21 @@ const Register2 = () => {
     }
   };
 
+  const loadErrors = useEffect(() => {
+    checkRegistration();
+  }, [email, password]);
 
-  const loadErrors = useEffect(() =>{
-    checkRegistration()
-  })
-
-  const checkRegistration = () =>{
+  const checkRegistration = () => {
     if (!email || !password) {
-      setRequired("*")
-  } else {
-    setRequired("")
-  }
-  }
+      setRequired("*");
+      return;
+    } else {
+      setRequired("");
+    }
+  };
 
-  
-
-
-  const width = Dimensions.get("window").width
-  const height = Dimensions.get("window").height
+  const width = Dimensions.get("window").width;
+  const height = Dimensions.get("window").height;
 
   return (
     <SafeAreaView
@@ -107,7 +109,9 @@ const Register2 = () => {
         backgroundColor: "#FAF9F6",
       }}
     >
-      <View style={{ paddingHorizontal: 30, gap: height * 0.1 , paddingTop: 40 }}>
+      <View
+        style={{ paddingHorizontal: 30, gap: height * 0.1, paddingTop: 40 }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -180,7 +184,7 @@ const Register2 = () => {
           </View>
         </View>
       </View>
-      <View style={{ paddingHorizontal: 30 }}>
+      <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
         <Pressable onPress={moveToNextPage}>
           <LinearGradient
             colors={["#007bff", "#003cfe"]} // gradient blue shades

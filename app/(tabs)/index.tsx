@@ -16,56 +16,63 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 // const fontSize = Dimensions.get("screen").fontScale;
 
-const formatDate = (date: Date) => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+// const formatDate = (date: Date) => {
+//   const days = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
 
-  const dayName = days[date.getDay()];
-  const monthName = months[date.getMonth()];
-  const dayOfMonth = date.getDate();
+//   const dayName = days[date.getDay()];
+//   const monthName = months[date.getMonth()];
+//   const dayOfMonth = date.getDate();
 
-  const ordinalSuffix = (n: number) => {
-    if (n >= 11 && n <= 13) return n + "th";
-    switch (n % 10) {
-      case 1:
-        return n + "st";
-      case 2:
-        return n + "nd";
-      case 3:
-        return n + "rd";
-      default:
-        return n + "th";
-    }
-  };
+//   const ordinalSuffix = (n: number) => {
+//     if (n >= 11 && n <= 13) return n + "th";
+//     switch (n % 10) {
+//       case 1:
+//         return n + "st";
+//       case 2:
+//         return n + "nd";
+//       case 3:
+//         return n + "rd";
+//       default:
+//         return n + "th";
+//     }
+//   };
 
-  return `${dayName}, ${monthName} ${ordinalSuffix(dayOfMonth)}`;
-};
+//   return `${dayName}, ${monthName} ${ordinalSuffix(dayOfMonth)}`;
+// };
+
+const date = new Date();
+const formatDate = date.toLocaleDateString("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+});
 
 export default function Index() {
   const wellnessFocus = [
     {
-      name: "Why Meditate",
+      name: "Why Meditate?",
       description: "A few calm minutes can ease stress and clear your mind",
       timeRange: "3-6 mins",
       image: Meditate,
@@ -137,9 +144,7 @@ export default function Index() {
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
             Good {timeOfDay}
           </Text>
-          <Text style={{ fontSize: 12, color: "#333333" }}>
-            {formatDate(myDate)}
-          </Text>
+          <Text style={{ fontSize: 12, color: "#333333" }}>{formatDate}</Text>
         </View>
         <View style={{ height: screenHeight * 0.3 }}>
           <ScrollView
