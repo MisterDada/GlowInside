@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useEffect, useState } from "react";
 import Login from "../AuthScreens/Login/Login";
 import Mood from "../AuthScreens/Register/Mood";
 import Register from "../AuthScreens/Register/Register";
@@ -9,6 +11,7 @@ import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const InsideStack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   const AuthStackNavigator = () => {
@@ -30,12 +33,39 @@ const StackNavigator = () => {
     );
   };
 
+  const InsideStackNavigator = () => {
+    return (
+      <InsideStack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <InsideStack.Screen name="Home" component={TabNavigator} />
+      </InsideStack.Navigator>
+    );
+  };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkUser = async () => {
+    const user = await AsyncStorage.getItem("userId");
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, gestureEnabled: false }}
     >
-      <Stack.Screen name="Auth" component={AuthStackNavigator} />
-      <Stack.Screen name="Home" component={TabNavigator} />
+      {isLoggedIn ? (
+        <Stack.Screen name="Home" component={InsideStackNavigator} />
+      ) : (
+        <Stack.Screen name="Auth" component={AuthStackNavigator} />
+      )}
     </Stack.Navigator>
   );
 };

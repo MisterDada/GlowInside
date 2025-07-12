@@ -61,9 +61,8 @@ const Register2 = () => {
       );
 
       const data = await res.json();
-      if (!res.ok) {
+      if (!data.ok) {
         setError(data.message);
-        return;
       }
       const userId = data.userId;
 
@@ -76,7 +75,6 @@ const Register2 = () => {
       }
     } catch (error) {
       console.log(error);
-      setError("Something went wrong. Please try again.");
       console.error("Registration error:", error);
       setEmail("");
       setPassword("");
