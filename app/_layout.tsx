@@ -4,6 +4,7 @@ import { Animated } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import StackNavigator from "./Navigation/StackNavigator";
 import SplashScreen from "./SplashScreen";
+import { ThemeProvider } from "./Theme/ThemeContext";
 
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -31,7 +32,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (fontsLoaded) {
-      const timer = setTimeout(() => setShowSplash(false), 2000); // 2000ms = 2 seconds
+      const timer = setTimeout(() => setShowSplash(false), 2000);
       return () => clearTimeout(timer);
     }
     fadeOut();
@@ -39,21 +40,23 @@ export default function RootLayout() {
 
   if (!fontsLoaded || showSplash) {
     return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Animated.View
-          style={[
-            {
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#FF6B81",
-            },
-            { opacity: fadeAnim },
-          ]}
-        >
-          <SplashScreen />
-        </Animated.View>
-      </GestureHandlerRootView>
+      <ThemeProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Animated.View
+            style={[
+              {
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#FF6B81",
+              },
+              { opacity: fadeAnim },
+            ]}
+          >
+            <SplashScreen />
+          </Animated.View>
+        </GestureHandlerRootView>
+      </ThemeProvider>
     );
   }
 
