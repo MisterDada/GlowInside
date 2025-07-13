@@ -144,7 +144,13 @@ export default function Index() {
         contentContainerStyle={{ paddingBottom: 55 }}
       >
         <View style={styles.container}>
-          <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
+          <Text
+            style={{
+              fontFamily: "AveriaSerifLibre-Bold",
+              fontSize: 32,
+              color: Theme.text,
+            }}
+          >
             Good {timeOfDay}
           </Text>
           <Text style={{ fontSize: 12, color: Theme.text }}>{formatDate}</Text>
@@ -219,21 +225,30 @@ export default function Index() {
           </ScrollView>
         </View>
         <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
-          <Text style={{ fontSize: 24, fontFamily: "AveriaSerifLibre-Bold" }}>
+          <Text
+            style={{
+              fontSize: 24,
+              fontFamily: "AveriaSerifLibre-Bold",
+              color: Theme.text,
+            }}
+          >
             Your current wellness focus
           </Text>
         </View>
         <View style={{ flex: 1, paddingBottom: 20, paddingHorizontal: 20 }}>
           {wellnessFocus.map((focus, idx) => (
-            <View key={idx} style={styles.focus}>
+            <View
+              key={idx}
+              style={[styles.focus, { backgroundColor: Theme.card }]}
+            >
               <View style={{ maxWidth: "50%", gap: 5, padding: 20 }}>
-                <Text style={{ fontSize: 16, color: "#333333" }}>
+                <Text style={{ fontSize: 16, color: Theme.text }}>
                   {focus.name}
                 </Text>
-                <Text style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}>
+                <Text style={{ color: Theme.text, fontSize: 12, opacity: 0.6 }}>
                   {focus.description}
                 </Text>
-                <Text style={{ color: "#333333", fontSize: 12, opacity: 0.6 }}>
+                <Text style={{ color: Theme.text, fontSize: 12, opacity: 0.6 }}>
                   {focus.timeRange}
                 </Text>
               </View>
@@ -257,7 +272,6 @@ const styles = StyleSheet.create({
   focus: {
     minHeight: 80,
     width: 350,
-    backgroundColor: "white",
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "space-between",
