@@ -2,9 +2,9 @@ import * as font from "expo-font";
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ThemeProvider } from "../Theme/ThemeContext";
 import StackNavigator from "./Navigation/StackNavigator";
 import SplashScreen from "./SplashScreen";
-import { ThemeProvider } from "./Theme/ThemeContext";
 
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -38,10 +38,10 @@ export default function RootLayout() {
     fadeOut();
   }, [fontsLoaded]);
 
-  if (!fontsLoaded || showSplash) {
-    return (
-      <ThemeProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+  return (
+    <ThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {!fontsLoaded || showSplash ? (
           <Animated.View
             style={[
               {
@@ -55,10 +55,10 @@ export default function RootLayout() {
           >
             <SplashScreen />
           </Animated.View>
-        </GestureHandlerRootView>
-      </ThemeProvider>
-    );
-  }
-
-  return <StackNavigator />;
+        ) : (
+          <StackNavigator />
+        )}
+      </GestureHandlerRootView>
+    </ThemeProvider>
+  );
 }

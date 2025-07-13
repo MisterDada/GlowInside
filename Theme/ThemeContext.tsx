@@ -1,5 +1,5 @@
-// ThemeContext.tsx
-import React, { ReactNode, createContext, useContext } from "react";
+// context/ThemeContext.tsx
+import React, { ReactNode, createContext, useContext, useMemo } from "react";
 import { useColorScheme } from "react-native";
 import { Theme, darkTheme, lightTheme } from "./Theme";
 
@@ -11,7 +11,10 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const scheme = useColorScheme(); // 'light' | 'dark' | null
-  const theme = scheme === "dark" ? darkTheme : lightTheme;
+
+  const theme = useMemo(() => {
+    return scheme === "dark" ? darkTheme : lightTheme;
+  }, [scheme]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>

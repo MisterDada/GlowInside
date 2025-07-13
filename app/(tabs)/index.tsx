@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import CardFace from "../../assets/images/CardFace.svg";
 import Meditate from "../../assets/images/Meditate.svg";
+import { useTheme } from "../../Theme/ThemeContext";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -133,9 +134,11 @@ export default function Index() {
     getTimeOfDay();
   }, []);
 
+  const Theme = useTheme();
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF9F6" }}>
-      <StatusBar barStyle="dark-content" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: Theme.background }}>
+      <StatusBar barStyle="default" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 55 }}
@@ -144,7 +147,7 @@ export default function Index() {
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
             Good {timeOfDay}
           </Text>
-          <Text style={{ fontSize: 12, color: "#333333" }}>{formatDate}</Text>
+          <Text style={{ fontSize: 12, color: Theme.text }}>{formatDate}</Text>
         </View>
         <View style={{ height: screenHeight * 0.3 }}>
           <ScrollView

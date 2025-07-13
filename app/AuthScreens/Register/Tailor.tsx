@@ -1,4 +1,4 @@
-import ModalPage from "@/app/Components/Modal";
+import ModalPage from "@/Components/Modal";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
