@@ -29,6 +29,7 @@ const StackNavigator = () => {
         <AuthStack.Screen name="Register3" component={Register3} />
         <AuthStack.Screen name="Tailor" component={Tailor} />
         <AuthStack.Screen name="Login" component={Login} />
+        <InsideStack.Screen name="Home" component={TabNavigator} />
       </AuthStack.Navigator>
     );
   };
@@ -41,6 +42,7 @@ const StackNavigator = () => {
         }}
       >
         <InsideStack.Screen name="Home" component={TabNavigator} />
+        <AuthStackNavigator />
       </InsideStack.Navigator>
     );
   };

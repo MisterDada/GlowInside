@@ -3,6 +3,7 @@ import HomeIcon from "@/assets/images/TabbarIcons/HomeIcon.svg";
 import ProfileIcon from "@/assets/images/TabbarIcons/ProfileIcon.svg";
 import { useTheme } from "@/Theme/ThemeContext";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
@@ -11,6 +12,7 @@ import Home from "../(tabs)/index";
 import Profile from "../(tabs)/Profile";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const TabNavigator = () => {
   const Theme = useTheme();

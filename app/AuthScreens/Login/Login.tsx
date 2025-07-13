@@ -17,6 +17,7 @@ import {
 import useAuthStore from "../../Store";
 type RootStackParamList = {
   Register: undefined;
+  Home: undefined;
   Register3: undefined;
   Login: undefined;
 };
@@ -68,7 +69,9 @@ const Login = () => {
           await AsyncStorage.getItem("token", data.token);
         }
 
-        navigation.navigate("Register3"); //change to home screen later
+        navigation.navigate("Home");
+        setEmail("");
+        setPassword("");
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
