@@ -1,3 +1,4 @@
+import { useTheme } from "@/Theme/ThemeContext";
 import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -99,12 +100,14 @@ const Register2 = () => {
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;
 
+  const Theme = useTheme();
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         justifyContent: "space-between",
-        backgroundColor: "#FAF9F6",
+        backgroundColor: Theme.background,
       }}
     >
       <View
@@ -118,17 +121,27 @@ const Register2 = () => {
           }}
         >
           <Pressable onPress={() => navigation.goBack()}>
-            <Image source={require("../../../assets/images/BackArrow.png")} />
+            <Image
+              source={require("../../../assets/images/BackArrow.png")}
+              tintColor={Theme.text}
+            />
           </Pressable>
 
-          <Image source={require("../../../assets/images/CloudIcon.png")} />
+          <Image
+            source={require("../../../assets/images/CloudIcon.png")}
+            tintColor={Theme.text}
+          />
         </View>
         <View style={{ gap: 48 }}>
           <View style={{ gap: 16 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            <Text
+              style={{ fontSize: 20, fontWeight: "bold", color: Theme.text }}
+            >
               Create Your GlowInside account
             </Text>
-            <Text style={{ fontSize: 16, color: "#C8C7C5", letterSpacing: -1 }}>
+            <Text
+              style={{ fontSize: 16, color: Theme.text, letterSpacing: -1 }}
+            >
               Personalized wellness tracking, habit building, and gentle
               guidance to help you{" "}
               <Text style={{ color: "#FF8092" }}>
@@ -138,7 +151,7 @@ const Register2 = () => {
           </View>
           <View style={{ gap: 20 }}>
             <View>
-              <Text style={{ color: "#333", paddingLeft: 7 }}>
+              <Text style={{ color: Theme.text, paddingLeft: 7 }}>
                 Your email <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <TextInput
@@ -150,7 +163,7 @@ const Register2 = () => {
               />
             </View>
             <View>
-              <Text style={{ color: "#121212", paddingLeft: 7 }}>
+              <Text style={{ color: Theme.text, paddingLeft: 7 }}>
                 Password <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <View style={styles.inputWrapper}>
@@ -202,14 +215,14 @@ const Register2 = () => {
               </View>
             ) : (
               <Text
-                style={{ textAlign: "center", color: "white", fontSize: 16 }}
+                style={{ textAlign: "center", color: Theme.text, fontSize: 16 }}
               >
                 Continue
               </Text>
             )}
           </LinearGradient>
         </Pressable>
-        <Text style={{ textAlign: "center", color: "#BBBBB9", marginTop: 10 }}>
+        <Text style={{ textAlign: "center", color: Theme.text, marginTop: 10 }}>
           Already have a Glow account?{" "}
           <Text
             onPress={() => navigation.navigate("Login")}

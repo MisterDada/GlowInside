@@ -15,7 +15,7 @@ import { useTheme } from "../../Theme/ThemeContext";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-// const fontSize = Dimensions.get("screen").fontScale;
+const fontSize = Dimensions.get("screen").fontScale;
 
 // const formatDate = (date: Date) => {
 //   const days = [
@@ -147,7 +147,7 @@ export default function Index() {
           <Text
             style={{
               fontFamily: "AveriaSerifLibre-Bold",
-              fontSize: 32,
+              fontSize: 24,
               color: Theme.text,
             }}
           >
