@@ -1,6 +1,7 @@
 import ExploreIcon from "@/assets/images/TabbarIcons/ExploreIcon.svg";
 import HomeIcon from "@/assets/images/TabbarIcons/HomeIcon.svg";
 import ProfileIcon from "@/assets/images/TabbarIcons/ProfileIcon.svg";
+import { useTheme } from "@/Theme/ThemeContext";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BlurView } from "expo-blur";
 import React from "react";
@@ -12,6 +13,7 @@ import Profile from "../(tabs)/Profile";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const Theme = useTheme();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -50,7 +52,7 @@ const TabNavigator = () => {
           tabBarLabel: ({ focused }) => (
             <Text
               style={{
-                color: focused ? "#003CFE" : "#999",
+                color: focused ? Theme.tabIcon : "#999",
                 fontSize: 14,
               }}
             >
@@ -58,7 +60,7 @@ const TabNavigator = () => {
             </Text>
           ),
           tabBarIcon: ({ focused }) => (
-            <HomeIcon color={focused ? "#003CFE" : "#999"} />
+            <HomeIcon color={focused ? Theme.tabIcon : "#999"} />
           ),
         }}
       />
@@ -67,12 +69,14 @@ const TabNavigator = () => {
         component={Explore}
         options={{
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 14 }}>
+            <Text
+              style={{ color: focused ? Theme.tabIcon : "#999", fontSize: 14 }}
+            >
               Explore
             </Text>
           ),
           tabBarIcon: ({ focused }) => (
-            <ExploreIcon color={focused ? "#003CFE" : "#999"} />
+            <ExploreIcon color={focused ? Theme.tabIcon : "#999"} />
           ),
         }}
       />
@@ -81,12 +85,14 @@ const TabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? "#003CFE" : "#999", fontSize: 14 }}>
+            <Text
+              style={{ color: focused ? Theme.tabIcon : "#999", fontSize: 14 }}
+            >
               Me
             </Text>
           ),
           tabBarIcon: ({ focused }) => (
-            <ProfileIcon color={focused ? "#003CFE" : "#999"} />
+            <ProfileIcon color={focused ? Theme.tabIcon : "#999"} />
           ),
         }}
       />

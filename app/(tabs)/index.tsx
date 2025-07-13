@@ -99,7 +99,7 @@ export default function Index() {
       headColor: "#A6B6F2",
       backgroundColor: "#CCD8FF",
       buttonColor: "#BCC8F5",
-      label: "3-minute breathing session",
+      label: "Take 3m breathing session",
       title: "Managing Anxiety",
       borderColor: "#B2C5FF",
     },
