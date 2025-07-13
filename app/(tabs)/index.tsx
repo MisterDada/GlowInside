@@ -169,13 +169,13 @@ export default function Index() {
                 key={idx}
                 style={{
                   backgroundColor: card.backgroundColor,
-                  width: screenWidth * 0.8,
+                  width: screenWidth * 0.6,
+                  height: screenHeight * 0.25,
                   marginRight: 16,
                   marginTop: 10,
                   borderRadius: 25,
                   flexDirection: "row",
                   alignItems: "baseline",
-                  justifyContent: "space-between",
                   overflow: "hidden",
                   borderWidth: 2,
                   borderColor: card.borderColor,
@@ -217,7 +217,7 @@ export default function Index() {
                     </Pressable>
                   </View>
                 </View>
-                <View>
+                <View style={{ zIndex: -1 }}>
                   <CardFace />
                 </View>
               </View>

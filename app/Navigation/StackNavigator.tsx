@@ -42,7 +42,7 @@ const StackNavigator = () => {
         }}
       >
         <InsideStack.Screen name="Home" component={TabNavigator} />
-        <AuthStackNavigator />
+        <InsideStack.Screen name="Auth" component={AuthStackNavigator} />
       </InsideStack.Navigator>
     );
   };

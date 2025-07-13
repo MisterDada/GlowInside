@@ -61,17 +61,17 @@ const Login = () => {
       );
 
       const data = await res.json();
-      const userId = data.userId;
+      if (!data.ok) {
+        setError(data.message);
+      }
+      const userId = data.user.id;
 
       if (res.ok) {
         console.log(userId);
         if (userId) {
-          await AsyncStorage.getItem("token", data.token);
+          await AsyncStorage.setItem("userId", userId);
         }
-
         navigation.navigate("Home");
-        setEmail("");
-        setPassword("");
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
