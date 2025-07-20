@@ -1,7 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   Dimensions,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -16,6 +16,12 @@ import { useTheme } from "../../Theme/ThemeContext";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 const fontSize = Dimensions.get("screen").fontScale;
+
+type Quote = {
+  id: number;
+  quote: string;
+  author: string;
+};
 
 // const formatDate = (date: Date) => {
 //   const days = [
@@ -93,27 +99,6 @@ export default function Index() {
     },
   ];
 
-  const cardData = [
-    {
-      head: "You're working on",
-      headColor: "#A6B6F2",
-      backgroundColor: "#CCD8FF",
-      buttonColor: "#BCC8F5",
-      label: "Take 3m breathing session",
-      title: "Managing Anxiety",
-      borderColor: "#B2C5FF",
-    },
-    {
-      head: "You're working on",
-      headColor: "#FFB2BF",
-      backgroundColor: "#FFE0E5",
-      buttonColor: "#FFB2BF",
-      label: "5 day detox",
-      title: "Managing Anxiety",
-      borderColor: "#FFCCD4",
-    },
-  ];
-
   const myDate = new Date();
   const [timeOfDay, setTimeOfDay] = useState("");
 
@@ -136,6 +121,24 @@ export default function Index() {
 
   const Theme = useTheme();
 
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchQuotes = async () => {
+    try {
+      const response = await axios.get("https://dummyjson.com/quotes");
+      setQuotes(response.data.quotes);
+    } catch (error) {
+      console.error("Error fetching quotes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuotes();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Theme.background }}>
       <StatusBar barStyle="default" />
@@ -155,75 +158,50 @@ export default function Index() {
           </Text>
           <Text style={{ fontSize: 12, color: Theme.text }}>{formatDate}</Text>
         </View>
-        <View style={{ height: screenHeight * 0.3 }}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              alignItems: "center",
-              paddingHorizontal: 16,
+        <View
+          style={{
+            paddingHorizontal: 20,
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              height: screenHeight * 0.3,
+              width: screenWidth * 0.9,
+              backgroundColor: "#ff6b8132",
+              borderRadius: 30,
+              padding: 20,
+              marginBottom: 38,
             }}
           >
-            {cardData.map((card, idx) => (
-              <View
-                key={idx}
-                style={{
-                  backgroundColor: card.backgroundColor,
-                  width: screenWidth * 0.6,
-                  height: screenHeight * 0.25,
-                  marginRight: 16,
-                  marginTop: 10,
-                  borderRadius: 25,
-                  flexDirection: "row",
-                  alignItems: "baseline",
-                  overflow: "hidden",
-                  borderWidth: 2,
-                  borderColor: card.borderColor,
-                }}
-              >
-                <View style={{ padding: 20, gap: 30 }}>
-                  <View style={{ paddingLeft: 10, gap: 5 }}>
-                    <Text
-                      style={{
-                        color: card.headColor,
-                        fontSize: 12,
-                      }}
-                    >
-                      {card.head}
-                    </Text>
-                    <Text style={{ color: "#333333", fontSize: 18 }}>
-                      {card.title}
-                    </Text>
-                  </View>
-                  <View>
-                    <Pressable
-                      style={{
-                        width: "100%",
-                        padding: 12,
-                        backgroundColor: card.buttonColor,
-                        borderRadius: 100,
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          letterSpacing: -0.5,
-                          textAlign: "center",
-                          color: "white",
-                        }}
-                      >
-                        {card.label}
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-                <View style={{ zIndex: -1 }}>
-                  <CardFace />
-                </View>
+            {quotes.length > 0 && (
+              <View style={{ justifyContent: "space-between", height: "100%" }}>
+                <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    color: Theme.text,
+                  }}
+                >
+                  {quotes[0].quote}
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 18,
+                    color: "#464646",
+                  }}
+                >
+                  {quotes[0].author}
+                </Text>
+                <Text style={{ textAlign: "right" }}>❤️</Text>
               </View>
-            ))}
-          </ScrollView>
+            )}
+          </View>
         </View>
+
         <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
           <Text
             style={{
@@ -266,8 +244,9 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     paddingTop: screenHeight * 0.1,
-    alignItems: "center",
+    alignItems: "flex-start",
     paddingHorizontal: screenWidth * 0.1,
+    marginBottom: 38,
   },
   focus: {
     minHeight: 80,
