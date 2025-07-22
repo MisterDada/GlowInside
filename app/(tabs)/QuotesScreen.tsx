@@ -24,7 +24,7 @@ const QuotesScreen = () => {
             gap: 10,
             alignItems: "center",
             justifyContent: "flex-start",
-            marginBottom: screenHeight * 0.05,
+            marginBottom: screenHeight * 0.02,
           }}
         >
           <Text onPress={navigation.goBack}>Go back</Text>
@@ -35,9 +35,10 @@ const QuotesScreen = () => {
         <View
           style={{
             paddingHorizontal: screenWidth * 0.05,
-            backgroundColor: "blue",
+            backgroundColor: "#ff6b8132",
             width: "100%",
             height: screenHeight * 0.8,
+            borderRadius: 30,
           }}
         >
           <Text>Hello</Text>
