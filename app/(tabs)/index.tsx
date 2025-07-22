@@ -147,16 +147,48 @@ export default function Index() {
         contentContainerStyle={{ paddingBottom: 55 }}
       >
         <View style={styles.container}>
-          <Text
-            style={{
-              fontFamily: "AveriaSerifLibre-Bold",
-              fontSize: 24,
-              color: Theme.text,
-            }}
-          >
-            Good {timeOfDay}
-          </Text>
-          <Text style={{ fontSize: 12, color: Theme.text }}>{formatDate}</Text>
+          <View style={{ flexDirection: "row", gap: 10, marginBottom: 24 }}>
+            <View
+              style={{
+                height: 40,
+                width: 40,
+                backgroundColor: "#EAEAEA",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 20 }}>🙍‍♂️</Text>
+              {/* Change this text to use profile picture later later */}
+            </View>
+            <View
+              style={{
+                height: 40,
+                width: 53,
+                backgroundColor: "white",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 20, textAlign: "center" }}>⚡2</Text>
+              {/* Change this text to use streaks later */}
+            </View>
+          </View>
+          <View style={{ gap: 4 }}>
+            <Text
+              style={{
+                fontFamily: "AveriaSerifLibre-Bold",
+                fontSize: 32,
+                color: Theme.text,
+              }}
+            >
+              Good {timeOfDay}
+            </Text>
+            <Text style={{ fontSize: 16, color: Theme.text, opacity: 0.4 }}>
+              {formatDate}
+            </Text>
+          </View>
         </View>
         <View
           style={{
@@ -168,7 +200,7 @@ export default function Index() {
             style={{
               height: screenHeight * 0.25,
               width: screenWidth * 0.9,
-              backgroundColor: "#ff6b8132",
+              backgroundColor: "#ff6b8136",
               borderRadius: 30,
               padding: 20,
               marginBottom: 38,
@@ -244,7 +276,7 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: screenHeight * 0.1,
+    paddingTop: screenHeight * 0.05,
     alignItems: "flex-start",
     paddingHorizontal: screenWidth * 0.1,
     marginBottom: 38,
