@@ -200,7 +200,7 @@ export default function Index() {
             style={{
               height: screenHeight * 0.25,
               width: screenWidth * 0.9,
-              backgroundColor: "#ff6b8136",
+              backgroundColor: "#ff6b811e",
               borderRadius: 30,
               padding: 20,
               marginBottom: 38,

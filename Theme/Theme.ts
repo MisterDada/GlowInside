@@ -8,7 +8,7 @@ export interface Theme {
 
 export const lightTheme: Theme = {
   background: "#FAF9F6",
-  text: "#000000",
+  text: "#464646",
   card: "white",
   tabIcon: "#003CFE",
 };
