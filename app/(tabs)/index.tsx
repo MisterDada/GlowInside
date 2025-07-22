@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   Dimensions,
   Platform,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -17,6 +21,10 @@ import { useTheme } from "../../Theme/ThemeContext";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 const fontSize = Dimensions.get("screen").fontScale;
+
+type RootStackParamList = {
+  Quotes: undefined;
+};
 
 type Quote = {
   id: number;
@@ -78,6 +86,8 @@ const formatDate = date.toLocaleDateString("en-US", {
 });
 
 export default function Index() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const wellnessFocus = [
     {
       name: "Grounding Breath",
@@ -209,43 +219,49 @@ export default function Index() {
             alignItems: "center",
           }}
         >
-          <View
-            style={{
-              height: screenHeight * 0.25,
-              width: "100%",
-              backgroundColor: "#ff6b811e",
-              borderRadius: 30,
-              padding: 20,
-              marginBottom: 38,
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Quotes");
             }}
           >
-            {quotes.length > 0 && (
-              <View
-                style={{ justifyContent: "center", gap: 40, height: "100%" }}
-              >
-                <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    color: Theme.text,
-                  }}
+            <View
+              style={{
+                height: screenHeight * 0.25,
+                width: "100%",
+                backgroundColor: "#ff6b811e",
+                borderRadius: 30,
+                padding: 20,
+                marginBottom: 38,
+              }}
+            >
+              {quotes.length > 0 && (
+                <View
+                  style={{ justifyContent: "center", gap: 40, height: "100%" }}
                 >
-                  {quotes[0].quote}
-                </Text>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 18,
-                    color: "#464646",
-                  }}
-                >
-                  {quotes[0].author}
-                </Text>
-              </View>
-            )}
-          </View>
+                  <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      color: Theme.text,
+                    }}
+                  >
+                    {quotes[0].quote}
+                  </Text>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 18,
+                      color: "#464646",
+                    }}
+                  >
+                    {quotes[0].author}
+                  </Text>
+                </View>
+              )}
+            </View>
+          </Pressable>
         </View>
 
         <View

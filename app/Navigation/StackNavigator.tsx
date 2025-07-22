@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
+import QuotesScreen from "../(tabs)/QuotesScreen";
 import Login from "../AuthScreens/Login/Login";
 import Mood from "../AuthScreens/Register/Mood";
 import Register from "../AuthScreens/Register/Register";
@@ -42,6 +43,7 @@ const StackNavigator = () => {
         }}
       >
         <InsideStack.Screen name="Home" component={TabNavigator} />
+        <InsideStack.Screen name="Quotes" component={QuotesScreen} />
         <InsideStack.Screen name="Auth" component={AuthStackNavigator} />
       </InsideStack.Navigator>
     );
