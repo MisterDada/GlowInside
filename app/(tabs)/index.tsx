@@ -166,7 +166,7 @@ export default function Index() {
         >
           <View
             style={{
-              height: screenHeight * 0.3,
+              height: screenHeight * 0.25,
               width: screenWidth * 0.9,
               backgroundColor: "#ff6b8132",
               borderRadius: 30,
@@ -175,7 +175,9 @@ export default function Index() {
             }}
           >
             {quotes.length > 0 && (
-              <View style={{ justifyContent: "space-between", height: "100%" }}>
+              <View
+                style={{ justifyContent: "center", gap: 40, height: "100%" }}
+              >
                 <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
                 <Text
                   style={{
@@ -196,7 +198,6 @@ export default function Index() {
                 >
                   {quotes[0].author}
                 </Text>
-                <Text style={{ textAlign: "right" }}>❤️</Text>
               </View>
             )}
           </View>
