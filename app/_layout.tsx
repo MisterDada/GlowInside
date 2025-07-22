@@ -24,6 +24,7 @@ export default function RootLayout() {
     const loadFonts = async () => {
       await font.loadAsync({
         "AveriaSerifLibre-Bold": require("../assets/fonts/Averia_Serif_Libre/AveriaSerifLibre-Bold.ttf"),
+        "AveriaSerifLibre-Regular": require("../assets/fonts/Averia_Serif_Libre/AveriaSerifLibre-Regular.ttf"),
       });
       setFontsLoaded(true);
     };

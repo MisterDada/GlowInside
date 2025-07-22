@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   Dimensions,
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -79,8 +80,9 @@ const formatDate = date.toLocaleDateString("en-US", {
 export default function Index() {
   const wellnessFocus = [
     {
-      name: "Why Meditate?",
-      description: "A few calm minutes can ease stress and clear your mind",
+      name: "Grounding Breath",
+      description:
+        "Focused breathing in the morning reduces anxiety and sets a peaceful daily tone.",
       timeRange: "3-6 mins",
       image: Meditate,
     },
@@ -156,6 +158,16 @@ export default function Index() {
                 borderRadius: 10,
                 alignItems: "center",
                 justifyContent: "center",
+                ...(Platform.OS === "ios"
+                  ? {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 7 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    }
+                  : {
+                      elevation: 5,
+                    }),
               }}
             >
               <Text style={{ fontSize: 20 }}>🙍‍♂️</Text>
@@ -178,7 +190,8 @@ export default function Index() {
           <View style={{ gap: 4 }}>
             <Text
               style={{
-                fontFamily: "AveriaSerifLibre-Bold",
+                fontFamily: "AveriaSerifLibre-Regular",
+                fontWeight: "bold",
                 fontSize: 32,
                 color: Theme.text,
               }}
@@ -192,14 +205,14 @@ export default function Index() {
         </View>
         <View
           style={{
-            paddingHorizontal: 20,
+            paddingHorizontal: screenWidth * 0.05,
             alignItems: "center",
           }}
         >
           <View
             style={{
               height: screenHeight * 0.25,
-              width: screenWidth * 0.9,
+              width: "100%",
               backgroundColor: "#ff6b811e",
               borderRadius: 30,
               padding: 20,
@@ -235,15 +248,17 @@ export default function Index() {
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
+        <View
+          style={{ paddingHorizontal: screenWidth * 0.05, paddingBottom: 20 }}
+        >
           <Text
             style={{
               fontSize: 24,
-              fontFamily: "AveriaSerifLibre-Bold",
+              fontWeight: "bold",
               color: Theme.text,
             }}
           >
-            Your current wellness focus
+            Your current wellness routine
           </Text>
         </View>
         <View style={{ flex: 1, paddingBottom: 20, paddingHorizontal: 20 }}>
@@ -253,7 +268,7 @@ export default function Index() {
               style={[styles.focus, { backgroundColor: Theme.card }]}
             >
               <View style={{ maxWidth: "50%", gap: 5, padding: 20 }}>
-                <Text style={{ fontSize: 16, color: Theme.text }}>
+                <Text style={{ fontSize: 16, color: "#FF6B81" }}>
                   {focus.name}
                 </Text>
                 <Text style={{ color: Theme.text, fontSize: 12, opacity: 0.6 }}>
@@ -278,7 +293,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: screenHeight * 0.05,
     alignItems: "flex-start",
-    paddingHorizontal: screenWidth * 0.1,
+    paddingHorizontal: screenWidth * 0.05,
     marginBottom: 38,
   },
   focus: {
