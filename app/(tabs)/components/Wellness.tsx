@@ -25,9 +25,8 @@ const wellnessFocus = [
     image: CardFace,
   },
 ];
-
+const Theme = useTheme();
 const Wellness = () => {
-  const Theme = useTheme();
   return (
     <View>
       {wellnessFocus.map((focus, id) => (

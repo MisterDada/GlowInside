@@ -6,10 +6,10 @@ import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
+const Theme = useTheme();
+
 const QuotesScreen = () => {
   const navigation = useNavigation();
-
-  const Theme = useTheme();
   return (
     <SafeAreaView
       style={{
@@ -18,29 +18,13 @@ const QuotesScreen = () => {
       }}
     >
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 10,
-            alignItems: "center",
-            justifyContent: "flex-start",
-            marginBottom: screenHeight * 0.02,
-          }}
-        >
+        <View style={styles.header}>
           <Text onPress={navigation.goBack}>Go back</Text>
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
             Daily Spark
           </Text>
         </View>
-        <View
-          style={{
-            paddingHorizontal: screenWidth * 0.05,
-            backgroundColor: "#ff6b8132",
-            width: "100%",
-            height: screenHeight * 0.8,
-            borderRadius: 30,
-          }}
-        >
+        <View style={styles.quotesbox}>
           <Text>Hello</Text>
         </View>
       </View>
@@ -56,5 +40,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: screenWidth * 0.05,
     marginBottom: 38,
+  },
+  quotesbox: {
+    paddingHorizontal: screenWidth * 0.05,
+    backgroundColor: "#ff6b8132",
+    width: "100%",
+    height: screenHeight * 0.8,
+    borderRadius: 30,
+  },
+  header: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginBottom: screenHeight * 0.02,
   },
 });
