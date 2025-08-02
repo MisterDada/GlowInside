@@ -17,11 +17,11 @@ type Quote = {
   quote: string;
   author: string;
 };
-const Theme = useTheme();
-const navigation =
-  useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
 const QuotesTile = () => {
+  const Theme = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
   async function fetchQuotes() {
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 18,
-    // color is set inline in the component
   },
   quoteAuthor: {
     textAlign: "center",
