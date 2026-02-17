@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# Glowinside
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Glowinside is a mental health awareness mobile application inspired by Headspace. The app focuses on promoting mindfulness, emotional awareness, and daily mental wellness through a calm, user-friendly mobile experience.
 
-## Get started
+The project demonstrates modern React Native development practices, smooth animations, and platform-aware UI design.
+
+## ✨ Features
+
+🔐 Custom authentication flow
+
+🎞 Smooth animations for improved user experience
+
+📱 Platform-specific tab navigation (iOS & Android)
+
+🌙 Light and Dark mode support
+
+🧠 Mental health awareness-focused UI design
+
+⚡ Built with Expo for fast development and testing
+
+## 📱 Screenshots
+<img width="440" height="956" alt="GlowInside (4)" src="https://github.com/user-attachments/assets/81a321c2-738c-4d1d-ad59-2a4c038bc3d6" />
+
+<img width="450" height="966" alt="GlowInside Onboarding" src="https://github.com/user-attachments/assets/493642c4-ae21-4cc7-ad03-1b27cd674053" />
+<img width="440" height="956" alt="GlowInside Onboarding 9" src="https://github.com/user-attachments/assets/7a9bef4f-b359-4a34-babf-85c9317ce127" />
+<img width="440" height="956" alt="GlowInside (2)" src="https://github.com/user-attachments/assets/a4ba91aa-20d7-41c0-83e3-6fde2ebe6da9" />
+<img width="440" height="956" alt="GlowInside (3)" src="https://github.com/user-attachments/assets/f4bf7be8-343f-4f02-82a9-d05c174fccdb" />
+<img width="440" height="956" alt="GlowInside Design (1)" src="https://github.com/user-attachments/assets/b2fa8db0-ce35-42cd-bc58-70837743e41b" />
+
+
+## 🛠 Tech Stack
+
+React Native
+
+Expo
+
+JavaScript / TypeScript
+
+React Navigation
+
+Context API / State Management
+
+Custom UI Components
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally:
 
 1. Install dependencies
+npm install
 
-   ```bash
-   npm install
-   ```
+2. Start the development server
+npx expo start
 
-2. Start the app
+3. Run the app
 
-   ```bash
-   npx expo start
-   ```
+Scan the QR code using Expo Go on your device, or
 
-In the output, you'll find options to open the app in a
+Run on an Android/iOS simulator.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🎯 Purpose
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Glowinside was built as a learning and portfolio project to explore animation, theming, and user experience design in mobile applications while addressing mental health awareness through technology.
