@@ -1,30 +1,41 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
-import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../Theme/ThemeContext";
 
 // Duplicating the array here for simplicity, or ideally this would be exported from a central data file
 const wellnessFocus = [
   {
     name: "Grounding Breath",
-    description: "Focused breathing in the morning reduces anxiety and sets a peaceful daily tone.",
+    description:
+      "Focused breathing in the morning reduces anxiety and sets a peaceful daily tone.",
     timeRange: "3-6 mins",
     icon: "🧘‍♂️",
-    content: "Take a deep breath in... hold for 4 seconds... and release slowly. Feel the tension leaving your body."
+    content:
+      "Take a deep breath in... hold for 4 seconds... and release slowly. Feel the tension leaving your body.",
   },
   {
     name: "Take a moment.",
     description: "Like a campfire for your mind — quiet, warm, and grounding.",
     timeRange: "3-6 mins",
     icon: "🔥",
-    content: "Close your eyes. Imagine the warmth of a gentle fire. Let your thoughts pass by without judgment."
+    content:
+      "Close your eyes. Imagine the warmth of a gentle fire. Let your thoughts pass by without judgment.",
   },
   {
     name: "Why Meditate",
     description: "A few calm minutes can ease stress and clear your mind",
     timeRange: "3-6 mins",
     icon: "✨",
-    content: "Consistent meditation has been shown to reduce cortisol levels, improve focus, and enhance overall emotional wellbeing."
+    content:
+      "Consistent meditation has been shown to reduce cortisol levels, improve focus, and enhance overall emotional wellbeing.",
   },
 ];
 
@@ -42,15 +53,24 @@ export default function WellnessDetail() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Theme.background }}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Text style={{ color: "#003CFE", fontSize: 16, fontWeight: "bold" }}>← Back</Text>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <Text style={{ color: "#003CFE", fontSize: 16, fontWeight: "bold" }}>
+            ← Back
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.contentBox}>
           <Text style={styles.icon}>{routine.icon}</Text>
-          <Text style={[styles.title, { color: Theme.text }]}>{routine.name}</Text>
-          <Text style={[styles.duration, { color: "#FF6B81" }]}>Duration: {routine.timeRange}</Text>
-          
+          <Text style={[styles.title, { color: Theme.text }]}>
+            {routine.name}
+          </Text>
+          <Text style={[styles.duration, { color: "#FF6B81" }]}>
+            Duration: {routine.timeRange}
+          </Text>
+
           <Text style={[styles.description, { color: Theme.text }]}>
             {routine.description}
           </Text>

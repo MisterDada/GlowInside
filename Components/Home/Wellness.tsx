@@ -2,8 +2,8 @@ import { useTheme } from "@/Theme/ThemeContext";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import CardFace from "../../../assets/images/CardFace.svg";
-import Meditate from "../../../assets/images/Meditate.svg";
+import CardFace from "../../assets/images/CardFace.svg";
+import Meditate from "../../assets/images/Meditate.svg";
 
 const wellnessFocus = [
   {

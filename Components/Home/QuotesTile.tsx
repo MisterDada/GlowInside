@@ -1,16 +1,11 @@
 import { useTheme } from "@/Theme/ThemeContext";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import axios from "axios";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-
-type RootStackParamList = {
-  Quotes: undefined;
-};
 
 type Quote = {
   id: number;
@@ -20,8 +15,7 @@ type Quote = {
 
 const QuotesTile = () => {
   const Theme = useTheme();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
   async function fetchQuotes() {
@@ -41,17 +35,24 @@ const QuotesTile = () => {
     <View>
       <Pressable
         onPress={() => {
-          navigation.navigate("Quotes");
+          router.push("/quotes");
         }}
       >
         <View style={styles.container}>
-          {quotes[0] && (
+          {quotes[0] ? (
             <View style={styles.quotesBox}>
               <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
               <Text style={[styles.quoteText, { color: Theme.text }]}>
-                {quotes[0].quote}
+                {quotes[0]?.quote}
               </Text>
-              <Text style={styles.quoteAuthor}>{quotes[0].author}</Text>
+              <Text style={styles.quoteAuthor}>{quotes[0]?.author}</Text>
+            </View>
+          ) : (
+            <View style={styles.quotesBox}>
+              <Text style={{ color: "#FF6B81" }}>Daily Spark</Text>
+              <Text style={[styles.quoteText, { color: Theme.text }]}>
+                No quotes available
+              </Text>
             </View>
           )}
         </View>

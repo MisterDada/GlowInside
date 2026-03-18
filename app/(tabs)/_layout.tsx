@@ -1,11 +1,11 @@
-import ExploreIcon from "../../assets/images/TabbarIcons/ExploreIcon.svg";
-import HomeIcon from "../../assets/images/TabbarIcons/HomeIcon.svg";
-import ProfileIcon from "../../assets/images/TabbarIcons/ProfileIcon.svg";
-import { useTheme } from "../../Theme/ThemeContext";
 import { BlurView } from "expo-blur";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
+import ExploreIcon from "../../assets/images/TabbarIcons/ExploreIcon.svg";
+import HomeIcon from "../../assets/images/TabbarIcons/HomeIcon.svg";
+import ProfileIcon from "../../assets/images/TabbarIcons/ProfileIcon.svg";
+import { useTheme } from "../../Theme/ThemeContext";
 
 export default function TabsLayout() {
   const Theme = useTheme();

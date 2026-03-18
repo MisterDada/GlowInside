@@ -1,7 +1,8 @@
 import { useTheme } from "@/Theme/ThemeContext";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;

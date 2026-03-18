@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import {
   Image,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import useAuthStore from "../Store";
 
 // Define the type for your auth store

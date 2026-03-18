@@ -11,8 +11,8 @@ import {
   View,
 } from "react-native";
 import { useTheme } from "../../Theme/ThemeContext";
-import QuotesTile from "./components/QuotesTile";
-import Wellness from "./components/Wellness";
+import QuotesTile from "@/Components/Home/QuotesTile";
+import Wellness from "@/Components/Home/Wellness";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
