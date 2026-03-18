@@ -1,9 +1,9 @@
 import * as font from "expo-font";
+import { Stack } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ThemeProvider } from "../Theme/ThemeContext";
-import StackNavigator from "./Navigation/StackNavigator";
 import SplashScreen from "./SplashScreen";
 
 export default function RootLayout() {
@@ -15,7 +15,7 @@ export default function RootLayout() {
   const fadeOut = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 3000,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
   };
@@ -33,32 +33,32 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (fontsLoaded) {
-      const timer = setTimeout(() => setShowSplash(false), 2000);
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+      }, 2000);
       return () => clearTimeout(timer);
     }
     fadeOut();
   }, [fontsLoaded]);
 
+  if (!fontsLoaded || showSplash) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#FF6B81" }}>
+        <SplashScreen />
+      </View>
+    );
+  }
+
   return (
     <ThemeProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        {!fontsLoaded || showSplash ? (
-          <Animated.View
-            style={[
-              {
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#FF6B81",
-              },
-              { opacity: fadeAnim },
-            ]}
-          >
-            <SplashScreen />
-          </Animated.View>
-        ) : (
-          <StackNavigator />
-        )}
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="auth" />
+          <Stack.Screen name="quotes" />
+          <Stack.Screen name="wellness" />
+        </Stack>
       </GestureHandlerRootView>
     </ThemeProvider>
   );

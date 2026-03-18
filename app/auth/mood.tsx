@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Slider from "@react-native-community/slider";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,20 +13,16 @@ import {
   Text,
   View,
 } from "react-native";
-import Anxious from "../../../assets/images/Emojis/Anxious.svg";
-import Down from "../../../assets/images/Emojis/Down.svg";
-import Stressed from "../../../assets/images/Emojis/Fire.svg";
-import Great from "../../../assets/images/Emojis/Great.svg";
-import Smiley from "../../../assets/images/Emojis/Smiley.svg";
-import Tired from "../../../assets/images/Emojis/Tired.svg";
-import useAuthStore from "../../Store";
+import Anxious from "../../assets/images/Emojis/Anxious.svg";
+import Down from "../../assets/images/Emojis/Down.svg";
+import Stressed from "../../assets/images/Emojis/Fire.svg";
+import Great from "../../assets/images/Emojis/Great.svg";
+import Smiley from "../../assets/images/Emojis/Smiley.svg";
+import Tired from "../../assets/images/Emojis/Tired.svg";
+import useAuthStore from "../Store";
 
 type AuthStore = {
   username: string;
-};
-
-type RootStackParamList = {
-  Tailor: undefined;
 };
 
 const Mood = () => {
@@ -48,7 +44,7 @@ const Mood = () => {
     showMood(); // Restart animation
   };
 
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const { username } = useAuthStore() as AuthStore;
 
@@ -81,7 +77,7 @@ const Mood = () => {
     await AsyncStorage.setItem("Mood", selectedMood);
 
     setLoading(true);
-    navigation.navigate("Tailor");
+    router.push("/auth/tailor");
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -132,7 +128,7 @@ const Mood = () => {
           </View>
           <Slider
             style={{ width: "100%", height: 40, alignSelf: "center" }}
-            thumbImage={require("../../../assets/images/SliderThumb.png")}
+            thumbImage={require("../../assets/images/SliderThumb.png")}
             thumbTintColor="#003CFE"
             minimumValue={1}
             maximumValue={6}

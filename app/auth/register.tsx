@@ -1,29 +1,23 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
   Dimensions,
   Image,
   Pressable,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-type RootStackParamList = {
-  Login: undefined;
-  Register2: undefined;
-};
-
-
-  const width = Dimensions.get("window").width
-  const height = Dimensions.get("window").height
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 const Register = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const moveAnim = useRef(new Animated.Value(50)).current;
   const showAnim = useRef(new Animated.Value(0)).current;
@@ -61,7 +55,7 @@ const Register = () => {
       <StatusBar barStyle="dark-content" />
       <View style={{ zIndex: 1 }}>
         <Animated.Image
-          source={require("../../../assets/images/Logo.png")}
+          source={require("../../assets/images/Logo.png")}
           style={[
             {
               width: 63,
@@ -75,7 +69,7 @@ const Register = () => {
           resizeMode="contain"
         />
         <Animated.Image
-          source={require("../../../assets/images/Register-image.png")}
+          source={require("../../assets/images/Register-image.png")}
           style={[
             { width: width - 100, height: height * 0.3 },
             { transform: [{ translateY: moveAnim }] },
@@ -116,7 +110,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/Logos/GoogleIcon.png")}
+              source={require("../../assets/images/Logos/GoogleIcon.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -132,7 +126,7 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/Logos/AppleLogo.png")}
+              source={require("../../assets/images/Logos/AppleLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
@@ -148,14 +142,14 @@ const Register = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/Logos/FacebookLogo.png")}
+              source={require("../../assets/images/Logos/FacebookLogo.png")}
               style={{ width: 20, height: 20, marginRight: 10 }}
               resizeMode="contain"
             />
             <Text style={styles.socialText}>Sign up with Facebook</Text>
           </View>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate("Register2")} >
+        <Pressable onPress={() => router.push("/auth/register2")}>
           <LinearGradient
             colors={["#007bff", "#003cfe"]} // gradient blue shades
             start={{ x: 0, y: 0 }}
@@ -170,7 +164,7 @@ const Register = () => {
         <Text style={{ textAlign: "center", color: "#BBBBB9", marginTop: 10 }}>
           Already have a Glow account?{" "}
           <Text
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => router.push("/auth/login")}
             style={{ color: "#003CFE", fontWeight: "bold" }}
           >
             Log in

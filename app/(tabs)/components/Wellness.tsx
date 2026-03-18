@@ -1,6 +1,7 @@
 import { useTheme } from "@/Theme/ThemeContext";
+import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CardFace from "../../../assets/images/CardFace.svg";
 import Meditate from "../../../assets/images/Meditate.svg";
 
@@ -25,12 +26,14 @@ const wellnessFocus = [
     image: CardFace,
   },
 ];
-const Theme = useTheme();
 const Wellness = () => {
+  const Theme = useTheme();
+  const router = useRouter();
   return (
     <View>
       {wellnessFocus.map((focus, id) => (
-        <View key={id} style={[styles.focus, { backgroundColor: Theme.card }]}>
+        <TouchableOpacity key={id} onPress={() => router.push((`/wellness/${id}`) as any)} activeOpacity={0.8}>
+          <View style={[styles.focus, { backgroundColor: Theme.card }]}>
           <View style={{ maxWidth: "50%", gap: 5, padding: 20 }}>
             <Text style={{ fontSize: 16, color: "#FF6B81" }}>{focus.name}</Text>
             <Text style={{ color: Theme.text, fontSize: 12, opacity: 0.6 }}>
@@ -43,7 +46,8 @@ const Wellness = () => {
           <View>
             <focus.image />
           </View>
-        </View>
+          </View>
+        </TouchableOpacity>
       ))}
     </View>
   );

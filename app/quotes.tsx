@@ -1,5 +1,5 @@
 import { useTheme } from "@/Theme/ThemeContext";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
@@ -9,7 +9,7 @@ const screenHeight = Dimensions.get("window").height;
 const Theme = useTheme();
 
 const QuotesScreen = () => {
-  const navigation = useNavigation();
+  const router = useRouter();
   return (
     <SafeAreaView
       style={{
@@ -19,7 +19,7 @@ const QuotesScreen = () => {
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text onPress={navigation.goBack}>Go back</Text>
+          <Text onPress={router.back}>Go back</Text>
           <Text style={{ fontFamily: "AveriaSerifLibre-Bold", fontSize: 32 }}>
             Daily Spark
           </Text>

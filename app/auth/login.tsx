@@ -1,8 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,13 +13,8 @@ import {
   TextInput,
   View,
 } from "react-native";
-import useAuthStore from "../../Store";
-type RootStackParamList = {
-  Register: undefined;
-  Home: undefined;
-  Register3: undefined;
-  Login: undefined;
-};
+import useAuthStore from "../Store";
+
 
 type AuthStore = {
   email: string;
@@ -34,8 +28,7 @@ const Login = () => {
   const { email, password, setEmail, setPassword, username } =
     useAuthStore() as AuthStore;
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -71,7 +64,7 @@ const Login = () => {
         if (userId) {
           await AsyncStorage.setItem("userId", userId);
         }
-        navigation.navigate("Home");
+        router.replace("/(tabs)");
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
@@ -98,11 +91,11 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          <Pressable onPress={() => navigation.goBack()}>
-            <Image source={require("../../../assets/images/BackArrow.png")} />
+          <Pressable onPress={() => router.back()}>
+            <Image source={require("../../assets/images/BackArrow.png")} />
           </Pressable>
 
-          <Image source={require("../../../assets/images/CloudIcon.png")} />
+          <Image source={require("../../assets/images/CloudIcon.png")} />
         </View>
         <View style={{ gap: 48 }}>
           <View style={{ gap: 16 }}>

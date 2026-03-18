@@ -1,27 +1,20 @@
 import { useTheme } from "@/Theme/ThemeContext";
 import { Feather } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
   Image,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import useAuthStore from "../../Store";
-type RootStackParamList = {
-  Register: undefined;
-  Register3: undefined;
-  Login: undefined;
-};
+import { SafeAreaView } from "react-native-safe-area-context";
+import useAuthStore from "../Store";
 
 type AuthStore = {
   email: string;
@@ -34,8 +27,7 @@ const Register2 = () => {
   const { email, password, setEmail, setPassword } =
     useAuthStore() as AuthStore;
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -45,43 +37,44 @@ const Register2 = () => {
   const inputRef = useRef<TextInput>(null);
 
   const moveToNextPage = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        "https://chatapp-backend-avmf.onrender.com/api/auth/register-step1",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+    // setLoading(true);
+    router.push("/auth/register3");
+    // try {
+    //   const res = await fetch(
+    //     "https://chatapp-backend-avmf.onrender.com/api/auth/register-step1",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         email,
+    //         password,
+    //       }),
+    //     },
+    //   );
 
-      const data = await res.json();
-      if (!data.ok) {
-        setError(data.message);
-      }
-      const userId = data.userId;
+    //   const data = await res.json();
+    //   if (!data.ok) {
+    //     setError(data.message);
+    //   }
+    //   const userId = data.userId;
 
-      if (res.ok) {
-        console.log(userId);
-        if (userId) {
-          await AsyncStorage.setItem("userId", userId);
-        }
-        navigation.navigate("Register3");
-      }
-    } catch (error) {
-      console.log(error);
-      console.error("Registration error:", error);
-      setEmail("");
-      setPassword("");
-    } finally {
-      setLoading(false);
-    }
+    //   if (res.ok) {
+    //     console.log(userId);
+    //     if (userId) {
+    //       await AsyncStorage.setItem("userId", userId);
+    //     }
+    //     router.push("/auth/register3");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   console.error("Registration error:", error);
+    //   setEmail("");
+    //   setPassword("");
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const loadErrors = useEffect(() => {
@@ -120,15 +113,15 @@ const Register2 = () => {
             alignItems: "center",
           }}
         >
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() => router.back()}>
             <Image
-              source={require("../../../assets/images/BackArrow.png")}
+              source={require("../../assets/images/BackArrow.png")}
               tintColor={Theme.text}
             />
           </Pressable>
 
           <Image
-            source={require("../../../assets/images/CloudIcon.png")}
+            source={require("../../assets/images/CloudIcon.png")}
             tintColor={Theme.text}
           />
         </View>
@@ -152,7 +145,8 @@ const Register2 = () => {
           <View style={{ gap: 20 }}>
             <View>
               <Text style={{ color: Theme.text, paddingLeft: 7 }}>
-                Your email <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
+                Your email{" "}
+                <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <TextInput
                 style={styles.input}
@@ -164,7 +158,8 @@ const Register2 = () => {
             </View>
             <View>
               <Text style={{ color: Theme.text, paddingLeft: 7 }}>
-                Password <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
+                Password{" "}
+                <Text style={{ color: "#003CFE" }}>{required}</Text>{" "}
               </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
@@ -225,7 +220,7 @@ const Register2 = () => {
         <Text style={{ textAlign: "center", color: Theme.text, marginTop: 10 }}>
           Already have a Glow account?{" "}
           <Text
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => router.push("/auth/login")}
             style={{ color: "hsl(226, 100.00%, 49.80%)" }}
           >
             Login

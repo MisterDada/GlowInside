@@ -1,8 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
   Image,
   Pressable,
@@ -12,13 +10,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import useAuthStore from "../../Store";
-
-type RootStackParamList = {
-  Register: undefined;
-  Register2: undefined;
-  Mood: undefined;
-};
+import useAuthStore from "../Store";
 
 // Define the type for your auth store
 type AuthStore = {
@@ -31,69 +23,70 @@ type AuthStore = {
 };
 
 const Register3 = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
-  const { email, password, username, setUsername } = useAuthStore() as AuthStore;
+  const { email, password, username, setUsername } =
+    useAuthStore() as AuthStore;
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
   // Get userId from AsyncStorage when component mounts
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const userId = await AsyncStorage.getItem("userId");
-      console.log("Fetched userId:", userId); 
-      setUserId(userId);
-    };
-    fetchUserId();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUserId = async () => {
+  //     const userId = await AsyncStorage.getItem("userId");
+  //     console.log("Fetched userId:", userId);
+  //     setUserId(userId);
+  //   };
+  //   fetchUserId();
+  // }, []);
 
   const handleRegister = async () => {
-    if (!userId) {
-      setError("User ID not found. Please restart registration.");
-      return;
-    }
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch(
-        "https://chatapp-backend-avmf.onrender.com/api/auth/register-step2",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            userId,      // <-- include userId here
-            username: username, // use the name entered by the user
-            email,
-            password,
-          }),
-        }
-      );
-      const raw = await res.text();
-      const data = JSON.parse(raw);
+    router.push("/auth/mood");
+    // if (!userId) {
+    //   setError("User ID not found. Please restart registration.");
+    //   return;
+    // }
+    // setLoading(true);
+    // setError("");
+    // try {
+    //   const res = await fetch(
+    //     "https://chatapp-backend-avmf.onrender.com/api/auth/register-step2",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         userId,      // <-- include userId here
+    //         username: username, // use the name entered by the user
+    //         email,
+    //         password,
+    //       }),
+    //     }
+    //   );
+    //   const raw = await res.text();
+    //   const data = JSON.parse(raw);
 
-      if (res.ok) {
-        await AsyncStorage.setItem("userId", data.user?.id || userId);
-        await AsyncStorage.setItem("token", data.token);
-        await AsyncStorage.setItem("user", JSON.stringify(data.user));
-        await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
-        navigation.navigate("Mood");
-        console.log("Registration successful", data);
-      } else {
-        setError(data.message || "Registration failed.");
-        console.error(data);
-      }
-    } catch (error) {
-      setError("Something went wrong. Please try again.");
-      console.error("Registration error:", error);
-    } finally {
-      setLoading(false);
-    }
+    //   if (res.ok) {
+    //     await AsyncStorage.setItem("userId", data.user?.id || userId);
+    //     await AsyncStorage.setItem("token", data.token);
+    //     await AsyncStorage.setItem("user", JSON.stringify(data.user));
+    //     await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+    //     router.push("/auth/mood");
+    //     console.log("Registration successful", data);
+    //   } else {
+    //     setError(data.message || "Registration failed.");
+    //     console.error(data);
+    //   }
+    // } catch (error) {
+    //   setError("Something went wrong. Please try again.");
+    //   console.error("Registration error:", error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   {
@@ -120,17 +113,19 @@ const Register3 = () => {
             alignItems: "center",
           }}
         >
-          <Pressable onPress={() => navigation.goBack()}>
-            <Image source={require("../../../assets/images/BackArrow.png")} />
+          <Pressable onPress={() => router.back()}>
+            <Image source={require("../../assets/images/BackArrow.png")} />
           </Pressable>
         </View>
         <View style={{ alignItems: "center" }}>
-          <Image source={require("../../../assets/images/Meditating.png")} />
+          <Image source={require("../../assets/images/Meditating.png")} />
         </View>
 
         <View style={{ gap: 48 }}>
           <View style={{ gap: 16 }}>
-            <Text style={{textAlign: 'center', color: '#BBBBB9', fontSize: 16}}>
+            <Text
+              style={{ textAlign: "center", color: "#BBBBB9", fontSize: 16 }}
+            >
               {email}
             </Text>
             <Text

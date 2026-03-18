@@ -1,29 +1,25 @@
 import ModalPage from "@/Components/Modal";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   Dimensions,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import Lightbulb from "../../../assets/images/Lightbulb.svg";
-import Success from "../../../assets/images/Success.svg";
-
-type RootStackParamList = {
-  Home: undefined;
-};
+import { SafeAreaView } from "react-native-safe-area-context";
+import Lightbulb from "../../assets/images/Lightbulb.svg";
+import Success from "../../assets/images/Success.svg";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export default function SelectableBox() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
@@ -40,7 +36,7 @@ export default function SelectableBox() {
 
   const toggleBox = (id: number) => {
     setSelectedBoxes((prev) =>
-      prev.includes(id) ? prev.filter((boxId) => boxId !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((boxId) => boxId !== id) : [...prev, id],
     );
   };
 
@@ -147,7 +143,7 @@ export default function SelectableBox() {
             <Pressable
               onPress={() => {
                 setShowModal(false);
-                navigation.navigate("Home");
+                router.replace("/(tabs)");
               }}
               style={{ width: screenWidth * 0.85 }}
             >

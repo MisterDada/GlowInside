@@ -1,23 +1,17 @@
-import ExploreIcon from "@/assets/images/TabbarIcons/ExploreIcon.svg";
-import HomeIcon from "@/assets/images/TabbarIcons/HomeIcon.svg";
-import ProfileIcon from "@/assets/images/TabbarIcons/ProfileIcon.svg";
-import { useTheme } from "@/Theme/ThemeContext";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ExploreIcon from "../../assets/images/TabbarIcons/ExploreIcon.svg";
+import HomeIcon from "../../assets/images/TabbarIcons/HomeIcon.svg";
+import ProfileIcon from "../../assets/images/TabbarIcons/ProfileIcon.svg";
+import { useTheme } from "../../Theme/ThemeContext";
 import { BlurView } from "expo-blur";
+import { Tabs } from "expo-router";
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import Explore from "../(tabs)/Explore";
-import Home from "../(tabs)/index";
-import Profile from "../(tabs)/Profile";
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-const TabNavigator = () => {
+export default function TabsLayout() {
   const Theme = useTheme();
+
   return (
-    <Tab.Navigator
+    <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -47,9 +41,8 @@ const TabNavigator = () => {
           ),
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={Home}
+      <Tabs.Screen
+        name="index"
         options={{
           tabBarLabel: ({ focused }) => (
             <Text
@@ -66,9 +59,8 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Explore"
-        component={Explore}
+      <Tabs.Screen
+        name="explore"
         options={{
           tabBarLabel: ({ focused }) => (
             <Text
@@ -82,9 +74,8 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
+      <Tabs.Screen
+        name="profile"
         options={{
           tabBarLabel: ({ focused }) => (
             <Text
@@ -98,8 +89,6 @@ const TabNavigator = () => {
           ),
         }}
       />
-    </Tab.Navigator>
+    </Tabs>
   );
-};
-
-export default TabNavigator;
+}
