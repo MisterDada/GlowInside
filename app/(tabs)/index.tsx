@@ -65,10 +65,7 @@ export default function Index() {
                 justifyContent: "center",
                 ...(Platform.OS === "ios"
                   ? {
-                      shadowColor: "#000",
-                      shadowOffset: { width: 0, height: 7 },
-                      shadowOpacity: 0.25,
-                      shadowRadius: 3.84,
+                      boxShadow: "0px 7px 3.84px rgba(0, 0, 0, 0.25)",
                     }
                   : {
                       elevation: 5,

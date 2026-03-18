@@ -3,24 +3,23 @@
     "name": "GlowInside",
     "slug": "GlowInside",
     "version": "1.0.0",
+    "icon": "./assets/images/splash-icon.png",
     "orientation": "portrait",
     "scheme": "stickersmash",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/splash-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/splash-icon.png"
     },
     "plugins": [
       "expo-router",
@@ -32,17 +31,15 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-web-browser",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "d1adb335-445e-41d9-aa99-3e6cdc4b8583"
-      }
-    },
-    "owner": "don_dada"
+      "router": {}
+    }
   }
 }

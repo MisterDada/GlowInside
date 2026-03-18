@@ -5,10 +5,10 @@ const SplashScreen = () => {
   return (
     <Image
       source={require("../assets/images/LogoWhite.png")}
+      resizeMode="contain"
       style={{
         width: 100,
         height: 100,
-        resizeMode: "contain",
         marginBottom: 20,
       }}
     />
